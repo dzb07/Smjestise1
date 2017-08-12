@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "69112820417",
+    "firebase_url": "https://smjestise-106ea.firebaseio.com",
+    "project_id": "smjestise-106ea",
+    "storage_bucket": "smjestise-106ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69112820417:android:101ecae45bb21402",
+        "android_client_info": {
+          "package_name": "bih.ba.smjestise.smjestise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69112820417-nlrb9abi37t8t9o0tvrfn994ogqfc2fn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW_UygrYKqHtnCvx283_agW6hdmyoXWkk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
