@@ -4,6 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,7 +19,8 @@ import java.util.ArrayList;
 import bih.ba.smjestise.smjestise.Helpers.ApartmentAdapter;
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
 
-public class SearchResults extends AppCompatActivity {
+
+public class SearchResults extends AppCompatActivity  {
     private static SearchResults instance = null;
     final ArrayList<Apartments> ads = new ArrayList<Apartments>();
     StaggeredGridLayoutManager mStaggeredLayoutManager;
@@ -34,9 +39,16 @@ public class SearchResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference();
-        databaseReference.child("property0").addValueEventListener(new ValueEventListener() {
+        Bundle bundle = getIntent().getExtras();
+        String host_city = bundle.getString("destination");
+        Integer num_of_rooms=bundle.getInt("num_of_rooms");
+        Integer num_of_adults=bundle.getInt("num_of_adults");
+        Integer num_of_children=bundle.getInt("num_of_children");
+        Log.v("kk",num_of_rooms.toString());
+        databaseReference.child(host_city).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -65,6 +77,5 @@ public class SearchResults extends AppCompatActivity {
     }
 
 
+
 }
-
-

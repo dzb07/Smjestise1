@@ -10,5 +10,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_reservation">Reservation</string>
 
+    <!--my strings-->
+    <string name="price_per_nigth">KM per night</string>
+    <string name="google_maps_key">AIzaSyDiy5C8g2TwWr-jF5_Zh5TM-RsJxZmwf7o</string>
 
+
+    <!-- end of my strings-->
 </resources>

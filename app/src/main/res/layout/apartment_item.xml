@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/ad_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/ad_image"
@@ -35,17 +35,24 @@
             android:textSize="15sp"
             android:textStyle="bold" />
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ad_address"
+            android:layout_below="@+id/ad_name"
+            />
+        <TextView
             android:id="@+id/ad_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/ad_image"
-            android:layout_below="@id/ad_name"
+            android:layout_below="@id/ad_address"
             android:layout_marginTop="50dp"
             android:gravity="center"
             android:padding="10dp"
             android:textSize="12sp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"/>
+
     </RelativeLayout>
 
     <!-- Used for the ripple effect on touch -->
