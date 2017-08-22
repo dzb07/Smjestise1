@@ -13,7 +13,7 @@ public class Apartments implements Serializable {
     public String price;
     public String lat;
     public String longitude;
-    public String num_of_rooms;
+    public Integer num_of_rooms;
     public String max_num_of_people;
     public String type_of_beds;
     public String arr_time;
@@ -34,6 +34,14 @@ public class Apartments implements Serializable {
     public String urlImage8;
     public String urlImage9;
     public String urlImage10;
+
+    public Integer getNum_of_rooms() {
+        return num_of_rooms;
+    }
+
+    public void setNum_of_rooms(Integer num_of_rooms) {
+        this.num_of_rooms = num_of_rooms;
+    }
 
     public Apartments(String longitude, String lat) {
         this.longitude = longitude;
@@ -58,7 +66,7 @@ public Apartments(String lat){
         this.longitude = longitude;
     }
 
-    public Apartments(String prop_name, String host_city, String host_address, String price, String num_of_rooms, String max_num_of_people, String type_of_beds, String arr_time, String bathroom, String kitchen, String breakfast, String parking_lot, String pets_allowed, String wifi, String app_code, String urlImage1, String urlImage2, String urlImage3, String urlImage4, String urlImage5, String urlImage6, String urlImage7, String urlImage8, String urlImage9, String urlImage10) {
+    public Apartments(String prop_name, String host_city, String host_address, String price, Integer num_of_rooms, String max_num_of_people, String type_of_beds, String arr_time, String bathroom, String kitchen, String breakfast, String parking_lot, String pets_allowed, String wifi, String app_code, String urlImage1, String urlImage2, String urlImage3, String urlImage4, String urlImage5, String urlImage6, String urlImage7, String urlImage8, String urlImage9, String urlImage10) {
         this.prop_name = prop_name;
         this.host_city = host_city;
         this.host_street = host_address;
@@ -100,6 +108,7 @@ public Apartments(String lat){
 
 
     }
+
 
     public void setPrice(String price) {
         this.price = price;

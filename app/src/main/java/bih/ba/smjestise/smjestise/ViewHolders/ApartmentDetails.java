@@ -1,9 +1,10 @@
 package bih.ba.smjestise.smjestise.ViewHolders;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,12 +20,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.support.v4.app.Fragment;
+
 import android.support.v4.app.FragmentActivity;
 import java.util.HashMap;
 
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
+import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 import bih.ba.smjestise.smjestise.R;
+import bih.ba.smjestise.smjestise.ReservationActivity;
 
 
 public class ApartmentDetails extends FragmentActivity implements BaseSliderView.OnSliderClickListener, OnMapReadyCallback,
@@ -39,20 +42,20 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
     private ImageView wifi_image;
     private ImageView parking_image;
     private ImageView pets_image;
+    private Button reserveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.apartment_details);
 
-        //ImageView imageView = (ImageView) findViewById(R.id.property_name);
         TextView property_name = (TextView) findViewById(R.id.property_name);
         TextView property_city = (TextView) findViewById(R.id.property_city);
         TextView property_address = (TextView) findViewById(R.id.property_address);
         wifi_image=(ImageView) findViewById(R.id.wifi) ;
         parking_image=(ImageView) findViewById(R.id.parking);
         pets_image=(ImageView) findViewById(R.id.pets);
-
+        reserveButton=(Button) findViewById(R.id.reserve);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -62,6 +65,9 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
 
         if (getIntent().hasExtra("ad")) {
             Apartments ad = (Apartments) getIntent().getSerializableExtra("ad");
+            final GlobalVars globalVariable_prop_name = (GlobalVars) getApplicationContext(); //make a accessing point
+
+            globalVariable_prop_name.setProperty_name(ad.prop_name);//set property name of global variable
             lat= Double.parseDouble(ad.lat);
             longitude= Double.parseDouble(ad.longitude);
             property_name.setText(ad.prop_name);
@@ -147,7 +153,19 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
         sliderLayout.setDuration(3000);
 
         sliderLayout.addOnPageChangeListener(this);
-}
+
+
+
+
+        /*on reserve button click*/
+        reserveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ApartmentDetails.this, ReservationActivity.class);
+                startActivity(intent);
+            }
+        });
+}       /*end reserve button*/
 
     @Override
     protected void onStop() {
@@ -185,7 +203,7 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
 
         LatLng sydney = new LatLng(lat,longitude);
         googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
+                .title("Your destination"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }

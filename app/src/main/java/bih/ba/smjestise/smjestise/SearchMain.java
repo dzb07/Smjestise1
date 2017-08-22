@@ -8,7 +8,6 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,16 +24,17 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import java.text.ParsePosition;
+import java.util.Date;
 import java.util.Locale;
+
+import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 
 public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
@@ -47,8 +47,9 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
     private Button buttoncheckIn;
     private Button buttoncheckOut;
     private CheckBox checkBox;
-    public EditText destination;
     public String destinationcity;
+    private String val_checkin;
+    private String val_checkout;
     Button search;
     Context context;
     Calendar myCalendar = Calendar.getInstance();
@@ -61,6 +62,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
 
+
     private GoogleApiClient mGoogleApiClient;
     private PlaceArrayAdapter mPlaceArrayAdapter;
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
@@ -71,7 +73,12 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_main);
+        /*Vars to set and get global variables*/
+        final GlobalVars roomsNO= (GlobalVars) getApplicationContext(); //make a accessing point
+        final GlobalVars adultstNO= (GlobalVars) getApplicationContext(); //make a accessing point
+        final GlobalVars childrenNO= (GlobalVars) getApplicationContext(); //make a accessing point
 
+        GlobalVars mApp = ((GlobalVars) getApplicationContext());
 
         mGoogleApiClient = new GoogleApiClient.Builder(SearchMain.this)
                 .addApi(Places.GEO_DATA_API)
@@ -86,8 +93,6 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
         /*get value of destination city*/
-        destination=(EditText) findViewById(R.id.destination);
-        destinationcity=destination.getText().toString();
        /* PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 */
@@ -96,7 +101,14 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
         /*end of getting destination city*/
 
         buttoncheckIn= (Button) findViewById(R.id.check_in);
+        val_checkin=buttoncheckIn.getText().toString();
+
         buttoncheckOut= (Button) findViewById(R.id.check_out);
+        val_checkout=buttoncheckOut.getText().toString();
+        ((GlobalVars) this.getApplication()).setCheckOUT(val_checkout);
+
+
+
         checkBox= (CheckBox) findViewById(R.id.checkbox_dates);
         if (checkBox == null) { Log.w("", "TextView is null"); }
         context=getApplicationContext();
@@ -138,6 +150,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
                 new DatePickerDialog(SearchMain.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
             }
         });
 
@@ -167,6 +180,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
         /*open number picker on button click for rooms*/
         num_of_rooms=(Button) findViewById(R.id.num_of_rooms);
+
         num_of_rooms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,17 +212,22 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
 
 
+
          /*on search button open new activity*/
         search=(Button) findViewById(R.id.search);
         search.setOnClickListener(new View.OnClickListener() {
 
             @Override public void onClick(View v) {
+                //set global variable of number of rooms to what is chosen
+
+                roomsNO.setNumOfRoomsVar(Integer.parseInt(num_of_rooms.getText().toString()));
+                adultstNO.setNum_of_adults(Integer.parseInt(num_of_adults.getText().toString()));
+                childrenNO.setNum_of_children(Integer.parseInt(num_of_children.getText().toString()));
                 Intent intSearchResults = new Intent(SearchMain.this, SearchResults.class);
                 /*send destination city to other activity*/
                 intSearchResults.putExtra("destination", destinationcity);
-                intSearchResults.putExtra("num_of_rooms",num_of_rooms.getText());
-                intSearchResults.putExtra("num_of_adults",num_of_adults.getText());
-                intSearchResults.putExtra("num_of_children",num_of_children.getText());
+              /*  intSearchResults.putExtra("num_of_adults",num_of_adults.getText());
+                intSearchResults.putExtra("num_of_children",num_of_children.getText());*/
                 startActivity(intSearchResults);
 
             }
@@ -231,12 +250,19 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         buttoncheckIn.setText(sdf.format(myCalendar.getTime()));
+        ((GlobalVars) this.getApplication()).setCheckIN(buttoncheckIn.getText().toString());
+        long timestamp1 = myCalendar.getTimeInMillis();
+        ((GlobalVars) this.getApplication()).setT1(timestamp1);
+
     }
     private void updateLabel2() {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         buttoncheckOut.setText(sdf.format(myCalendar.getTime()));
+        ((GlobalVars) this.getApplication()).setCheckOUT(buttoncheckOut.getText().toString());
+        long timestamp2 = myCalendar.getTimeInMillis();
+        ((GlobalVars) this.getApplication()).setT2(timestamp2);
     }
 
 /*method to open number picker dialog on button clicked, and sets number to button text*/
@@ -257,6 +283,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
             @Override
             public void onClick(View v) {
                 button.setText(String.valueOf(np.getValue()));
+
                 d.dismiss(); // dismiss the dialog
             }
         });
@@ -323,5 +350,14 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
     public void onConnectionSuspended(int i) {
         mPlaceArrayAdapter.setGoogleApiClient(null);
         Log.e(LOG_TAG, "Google Places API connection suspended.");
+    }
+    private Date stringToDate(String aDate,String aFormat) {
+
+        if(aDate==null) return null;
+        ParsePosition pos = new ParsePosition(0);
+        SimpleDateFormat simpledateformat = new SimpleDateFormat(aFormat);
+        Date stringDate = simpledateformat.parse(aDate, pos);
+        return stringDate;
+
     }
 }

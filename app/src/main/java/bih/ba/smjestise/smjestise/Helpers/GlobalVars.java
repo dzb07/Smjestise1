@@ -1,0 +1,127 @@
+package bih.ba.smjestise.smjestise.Helpers;
+
+import android.app.Application;
+
+import java.security.Timestamp;
+import java.util.Date;
+
+/**
+ * Created by Džana on 20.8.2017.
+ */
+
+public class GlobalVars extends Application {
+
+    private int num_of_rooms_var;
+    private String property_name;
+    private Integer num_of_adults;
+    private Integer num_of_children;
+    private Date checkin;
+    private String checkIN;
+    private Date checkout;
+    private String checkOUT;
+    private long t1;
+    private long t2;
+
+    public long getT1() {
+        return t1;
+    }
+
+    public void setT1(long t1) {
+        this.t1 = t1;
+    }
+
+    public long getT2() {
+        return t2;
+    }
+
+    public void setT2(long t2) {
+        this.t2 = t2;
+    }
+
+    public GlobalVars() {
+    }
+
+    public GlobalVars(Integer num_of_adults, Integer num_of_children, Date checkin, Date checkout) {
+        this.num_of_adults = num_of_adults;
+        this.num_of_children = num_of_children;
+        this.checkin = checkin;
+        this.checkout = checkout;
+    }
+
+    public String getCheckIN() {
+        return checkIN;
+    }
+
+    public void setCheckIN(String checkIN) {
+        this.checkIN = checkIN;
+    }
+
+    public String getCheckOUT() {
+        return checkOUT;
+    }
+
+    public void setCheckOUT(String checkOUT) {
+        this.checkOUT = checkOUT;
+    }
+
+    public GlobalVars(String property_name) {
+        this.property_name = property_name;
+    }
+
+    public String getProperty_name() {
+        return property_name;
+    }
+
+
+    public void setProperty_name(String property_name) {
+        this.property_name = property_name;
+    }
+
+    public Integer getNumOfRoomsVar() {
+        return num_of_rooms_var;
+    }
+
+    public void setNumOfRoomsVar(Integer someVariable) {
+        this.num_of_rooms_var = someVariable;
+    }
+
+    public Integer getNum_of_rooms_var() {
+        return num_of_rooms_var;
+    }
+
+    public void setNum_of_rooms_var(Integer num_of_rooms_var) {
+        this.num_of_rooms_var = num_of_rooms_var;
+    }
+
+    public Integer getNum_of_adults() {
+        return num_of_adults;
+    }
+
+    public void setNum_of_adults(Integer num_of_adults) {
+        this.num_of_adults = num_of_adults;
+    }
+
+    public Integer getNum_of_children() {
+        return num_of_children;
+    }
+
+    public void setNum_of_children(Integer num_of_children) {
+        this.num_of_children = num_of_children;
+    }
+
+    public Date getCheckin() {
+        return checkin;
+    }
+
+    public void setCheckin(Date checkin) {
+        this.checkin = checkin;
+    }
+
+    public Date getCheckout() {
+        return checkout;
+    }
+
+    public void setCheckout(Date checkout) {
+        this.checkout = checkout;
+    }
+}
