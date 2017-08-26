@@ -12,5 +12,5 @@
             android:title="AboutApp"
             android:icon="@drawable/ic_menu_gallery" />
 
- s</group>
+    </group>
 </menu>

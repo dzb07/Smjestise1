@@ -2,10 +2,13 @@ package bih.ba.smjestise.smjestise.ViewHolders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +33,7 @@ import bih.ba.smjestise.smjestise.R;
 import bih.ba.smjestise.smjestise.ReservationActivity;
 
 
-public class ApartmentDetails extends FragmentActivity implements BaseSliderView.OnSliderClickListener, OnMapReadyCallback,
+public class ApartmentDetails extends  AppCompatActivity implements BaseSliderView.OnSliderClickListener, OnMapReadyCallback,
         ViewPagerEx.OnPageChangeListener {
 
     SliderLayout sliderLayout;
@@ -43,6 +46,7 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
     private ImageView parking_image;
     private ImageView pets_image;
     private Button reserveButton;
+    private TextView ap_desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,22 +56,31 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
         TextView property_name = (TextView) findViewById(R.id.property_name);
         TextView property_city = (TextView) findViewById(R.id.property_city);
         TextView property_address = (TextView) findViewById(R.id.property_address);
-        wifi_image=(ImageView) findViewById(R.id.wifi) ;
-        parking_image=(ImageView) findViewById(R.id.parking);
-        pets_image=(ImageView) findViewById(R.id.pets);
+        LinearLayout perks_wifi= (LinearLayout)findViewById(R.id.perks_wifi);
+        LinearLayout perks_pets= (LinearLayout)findViewById(R.id.perks_pets);
+        LinearLayout perks_parking= (LinearLayout)findViewById(R.id.perks_parking);
+        LinearLayout perks_breakfast= (LinearLayout)findViewById(R.id.perks_breakfast);
+        LinearLayout perks_kitchen= (LinearLayout)findViewById(R.id.perks_kitchen);
+        LinearLayout perks_bathroom= (LinearLayout)findViewById(R.id.perks_bathroom);
+        ap_desc=(TextView) findViewById(R.id.ap_desc);
         reserveButton=(Button) findViewById(R.id.reserve);
-
+        ap_desc.setMaxLines(3);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
 
         if (getIntent().hasExtra("ad")) {
             Apartments ad = (Apartments) getIntent().getSerializableExtra("ad");
             final GlobalVars globalVariable_prop_name = (GlobalVars) getApplicationContext(); //make a accessing point
-
+            ap_desc.setText(ad.getAp_desc());
             globalVariable_prop_name.setProperty_name(ad.prop_name);//set property name of global variable
+            getSupportActionBar().setTitle(ad.prop_name);
             lat= Double.parseDouble(ad.lat);
             longitude= Double.parseDouble(ad.longitude);
             property_name.setText(ad.prop_name);
@@ -75,26 +88,50 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
             property_address.setText(ad.host_street);
             /*check for wifi*/
             if(ad.wifi.equals("yes")){
-                wifi_image.setVisibility(View.VISIBLE);
+                perks_wifi.setVisibility(View.VISIBLE);
             }
             else{
-                wifi_image.setVisibility(View.GONE);
+                perks_wifi.setVisibility(View.GONE);
 
             }
-            /*check for parking*/
+           // check for parking
             if(ad.parking.equals("yes")){
-                parking_image.setVisibility(View.VISIBLE);
+                perks_parking.setVisibility(View.VISIBLE);
             }
             else{
-                parking_image.setVisibility(View.GONE);
+                perks_parking.setVisibility(View.GONE);
 
             }
-            /*check for pets*/
+            //check for pets
             if(ad.pets.equals("yes")){
-                pets_image.setVisibility(View.VISIBLE);
+                perks_pets.setVisibility(View.VISIBLE);
             }
             else{
-                pets_image.setVisibility(View.GONE);
+                perks_pets.setVisibility(View.GONE);
+
+            }
+            //check for breakfast
+            if(ad.pets.equals("yes")){
+                perks_breakfast.setVisibility(View.VISIBLE);
+            }
+            else{
+                perks_breakfast.setVisibility(View.GONE);
+
+            }
+            //check for bathroom
+            if(ad.pets.equals("yes")){
+                perks_bathroom.setVisibility(View.VISIBLE);
+            }
+            else{
+                perks_bathroom.setVisibility(View.GONE);
+
+            }
+            //check for bathroom
+            if(ad.pets.equals("yes")){
+                perks_kitchen.setVisibility(View.VISIBLE);
+            }
+            else{
+                perks_kitchen.setVisibility(View.GONE);
 
             }
 
@@ -165,7 +202,16 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
                 startActivity(intent);
             }
         });
-}       /*end reserve button*/
+        /*end reserve button*/
+
+
+    }
+    /*method to open read more of hotel description*/
+    public void onClick(View v) {
+
+        ap_desc.setMaxLines(Integer.MAX_VALUE);
+    }
+
 
     @Override
     protected void onStop() {
@@ -205,5 +251,12 @@ public class ApartmentDetails extends FragmentActivity implements BaseSliderView
         googleMap.addMarker(new MarkerOptions().position(sydney)
                 .title("Your destination"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 }

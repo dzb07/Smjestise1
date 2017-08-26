@@ -40,7 +40,7 @@ public class ReservationActivity extends AppCompatActivity {
         final GlobalVars globalVariable_checkout = (GlobalVars) getApplicationContext(); //make a accessing point
         final GlobalVars t1 = (GlobalVars) getApplicationContext(); //make a accessing point
         final GlobalVars t2 = (GlobalVars) getApplicationContext(); //make a accessing point
-        final GlobalVars hostCity = (GlobalVars) getApplicationContext(); //make a accessing point
+        final GlobalVars propName = (GlobalVars) getApplicationContext(); //make a accessing point
 
 
 
@@ -55,8 +55,9 @@ public class ReservationActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference();
+        String mGroupId = databaseReference.push().getKey();
         for (int i = 0; i < reservation.size(); i++) {
-            databaseReference.child("Reserved").push().setValue(reservation.get(i));
+            databaseReference.child("Reserved/"+propName.getProperty_name()).push().setValue(reservation.get(i));
         }
 
     }

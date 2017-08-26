@@ -4,14 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import bih.ba.smjestise.smjestise.Helpers.BottomNavigationViewHelper;
 import bih.ba.smjestise.smjestise.R;
 import bih.ba.smjestise.smjestise.SearchMain;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +73,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -83,6 +92,31 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        BottomNavigationView bottomNavigationView=(BottomNavigationView) rootView.findViewById(R.id.bootom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())  {
+                    case R.id.home:
+                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        HomeFragment fragment = new HomeFragment();
+                        fm.beginTransaction().add(R.id.fragment_container,fragment).commit();
+                        break;
+                    case R.id.booked:
+                        Intent intent_booked = new Intent(context, SearchMain.class);
+                        startActivity(intent_booked);
+                        break;
+                    case R.id.favourites:
+                        Intent intent_favourites = new Intent(context, SearchMain.class);
+                        startActivity(intent_favourites);
+                        break;
+                }
+                return true;
+            }
+        });
+
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);//disable animation on bottom menu
+
         return rootView;
     }
 

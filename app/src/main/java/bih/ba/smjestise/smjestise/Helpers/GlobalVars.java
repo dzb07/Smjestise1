@@ -21,6 +21,38 @@ public class GlobalVars extends Application {
     private String checkOUT;
     private long t1;
     private long t2;
+    public static  String currency; //making it static in order to access it in ApartmentViewHolder class
+    private long days_difference;
+
+    public long getDays_difference() {
+        return days_difference;
+    }
+
+    public void setDays_difference(long days_difference) {
+        this.days_difference = days_difference;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    private int counter;
+
+    public void setNum_of_rooms_var(int num_of_rooms_var) {
+        this.num_of_rooms_var = num_of_rooms_var;
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
 
     public long getT1() {
         return t1;

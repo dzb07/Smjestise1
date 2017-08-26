@@ -1,14 +1,15 @@
 package bih.ba.smjestise.smjestise;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -16,10 +17,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
+import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -30,10 +33,10 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+
 import java.text.ParsePosition;
 import java.util.Date;
 import java.util.Locale;
-
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 
 public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
@@ -61,6 +64,10 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
     private static final String LOG_TAG = "SearchMain";
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
+    Apartments variable;
+    /*radio buttons for currency*/
+    RadioButton KM;
+    RadioButton EUR;
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -73,13 +80,36 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_main);
+        //checking for action bar
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         /*Vars to set and get global variables*/
         final GlobalVars roomsNO= (GlobalVars) getApplicationContext(); //make a accessing point
         final GlobalVars adultstNO= (GlobalVars) getApplicationContext(); //make a accessing point
         final GlobalVars childrenNO= (GlobalVars) getApplicationContext(); //make a accessing point
+        final GlobalVars host_city= (GlobalVars) getApplicationContext(); //make a accessing point
 
-        GlobalVars mApp = ((GlobalVars) getApplicationContext());
 
+        /*accessing radio bbuttons for currency*/
+        KM=(RadioButton)findViewById(R.id.KM);
+        EUR=(RadioButton)findViewById(R.id.EUR);
+
+        /*load currency json file*/
+       /* AsyncHttpClient client = new AsyncHttpClient();
+        client.get("https://openexchangerates.org/api/latest.json?app_id=9a0ebdf3948d458590a440c8a32551a6", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                //JSONObject jsnobject=new JSONObject(String.valueOf(response));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+
+        });*/
         mGoogleApiClient = new GoogleApiClient.Builder(SearchMain.this)
                 .addApi(Places.GEO_DATA_API)
                 .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
@@ -102,6 +132,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
         buttoncheckIn= (Button) findViewById(R.id.check_in);
         val_checkin=buttoncheckIn.getText().toString();
+        ((GlobalVars) this.getApplication()).setCheckIN(val_checkin);
 
         buttoncheckOut= (Button) findViewById(R.id.check_out);
         val_checkout=buttoncheckOut.getText().toString();
@@ -197,6 +228,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
                 showNumPicker(num_of_adults);
             }
         });
+
         /*end of opening number picker on button click*/
 
           /*open number picker on button click for children*/
@@ -212,6 +244,8 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
 
 
+        final GlobalVars checkin = ((GlobalVars) getApplicationContext());//need it to access check in from user choice
+        final GlobalVars currency = ((GlobalVars) getApplicationContext());//need it to access CURRENCY from user choice
 
          /*on search button open new activity*/
         search=(Button) findViewById(R.id.search);
@@ -219,23 +253,79 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
             @Override public void onClick(View v) {
                 //set global variable of number of rooms to what is chosen
-
+                Toast.makeText(getApplicationContext(),checkin.getCheckIN(),Toast.LENGTH_LONG).show();
                 roomsNO.setNumOfRoomsVar(Integer.parseInt(num_of_rooms.getText().toString()));
                 adultstNO.setNum_of_adults(Integer.parseInt(num_of_adults.getText().toString()));
                 childrenNO.setNum_of_children(Integer.parseInt(num_of_children.getText().toString()));
+               // host_city.setHost_city()
                 Intent intSearchResults = new Intent(SearchMain.this, SearchResults.class);
                 /*send destination city to other activity*/
                 intSearchResults.putExtra("destination", destinationcity);
-              /*  intSearchResults.putExtra("num_of_adults",num_of_adults.getText());
-                intSearchResults.putExtra("num_of_children",num_of_children.getText());*/
+                if(EUR.isChecked())
+                {
+                    currency.setCurrency("EUR");
+                }
+                else{
+                    currency.setCurrency("KM");
+
+                }
+
+
                 startActivity(intSearchResults);
 
             }
         });
         /*end of opening SearchResults*/
 
+    /*handling ImageButtons in horizontal sroll view and opening wikipedia pages*/
+        ImageButton sarajevo=(ImageButton) findViewById(R.id.sarajevo);
+        sarajevo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToUrl("https://bs.wikipedia.org/wiki/Sarajevo");
 
+            }
+        });
+        ImageButton mostar=(ImageButton)findViewById(R.id.mostar);
+        mostar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToUrl("https://hr.wikipedia.org/wiki/Mostar");
 
+            }
+        });
+        ImageButton hutovo_blato=(ImageButton)findViewById(R.id.hutovo_blato);
+        hutovo_blato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToUrl("http://hutovo-blato.ba/");
+
+            }
+        });
+        ImageButton banja_luka=(ImageButton)findViewById(R.id.banja_luka);
+        banja_luka.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToUrl("https://hr.wikipedia.org/wiki/Banja_Luka");
+
+            }
+        });
+        ImageButton bihac=(ImageButton)findViewById(R.id.bihac);
+        bihac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToUrl("https://hr.wikipedia.org/wiki/Biha%C4%87");
+
+            }
+        });
+
+    }
+
+    /*method to open wikipedia on button click*/
+    private void goToUrl (String url) {
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
     }
 
 
@@ -244,9 +334,8 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
 
 
-
     private void updateLabel() {
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "dd MM yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         buttoncheckIn.setText(sdf.format(myCalendar.getTime()));
@@ -256,7 +345,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
     }
     private void updateLabel2() {
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "dd MM yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         buttoncheckOut.setText(sdf.format(myCalendar.getTime()));
@@ -360,4 +449,15 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
         return stringDate;
 
     }
+
+//method for back button in action bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
 }
+
+
+

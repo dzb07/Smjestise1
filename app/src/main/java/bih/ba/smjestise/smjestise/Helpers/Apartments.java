@@ -8,9 +8,10 @@ import java.io.Serializable;
 
 public class Apartments implements Serializable {
     public String prop_name;
+    public Integer price_eur;
     public String host_city;
     public String host_street;
-    public String price;
+    public Integer price;
     public String lat;
     public String longitude;
     public Integer num_of_rooms;
@@ -34,6 +35,23 @@ public class Apartments implements Serializable {
     public String urlImage8;
     public String urlImage9;
     public String urlImage10;
+    public String ap_desc;
+
+    public String getAp_desc() {
+        return ap_desc;
+    }
+
+    public void setAp_desc(String ap_desc) {
+        this.ap_desc = ap_desc;
+    }
+
+    public Integer getPrice_eur() {
+        return price_eur;
+    }
+
+    public void setPrice_eur(Integer price_eur) {
+        this.price_eur = price_eur;
+    }
 
     public Integer getNum_of_rooms() {
         return num_of_rooms;
@@ -66,7 +84,7 @@ public Apartments(String lat){
         this.longitude = longitude;
     }
 
-    public Apartments(String prop_name, String host_city, String host_address, String price, Integer num_of_rooms, String max_num_of_people, String type_of_beds, String arr_time, String bathroom, String kitchen, String breakfast, String parking_lot, String pets_allowed, String wifi, String app_code, String urlImage1, String urlImage2, String urlImage3, String urlImage4, String urlImage5, String urlImage6, String urlImage7, String urlImage8, String urlImage9, String urlImage10) {
+    public Apartments(String prop_name, String host_city, String host_address, Integer price, Integer num_of_rooms, String max_num_of_people, String type_of_beds, String arr_time, String bathroom, String kitchen, String breakfast, String parking_lot, String pets_allowed, String wifi, String app_code, String urlImage1, String urlImage2, String urlImage3, String urlImage4, String urlImage5, String urlImage6, String urlImage7, String urlImage8, String urlImage9, String urlImage10) {
         this.prop_name = prop_name;
         this.host_city = host_city;
         this.host_street = host_address;
@@ -100,7 +118,7 @@ public Apartments(String lat){
 
 
 
-    public Apartments(String property_name, String urlImage1, String host_city, String price) {
+    public Apartments(String property_name, String urlImage1, String host_city, Integer price) {
         this.prop_name = property_name;
         this.urlImage1 = urlImage1;
         this.host_city = host_city;
@@ -110,7 +128,7 @@ public Apartments(String lat){
     }
 
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
     public void setProp_name(String property_name) {
@@ -138,7 +156,7 @@ public Apartments(String lat){
     public String getHost_city() {
         return host_city;
     }
-    public String getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

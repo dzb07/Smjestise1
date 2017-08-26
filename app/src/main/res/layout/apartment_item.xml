@@ -27,31 +27,59 @@
             android:id="@+id/ad_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/ad_image"
-
             android:gravity="center"
             android:padding="10dp"
             android:textSize="15sp"
             android:textStyle="bold" />
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ad_address"
             android:layout_below="@+id/ad_name"
+            android:layout_toRightOf="@+id/ad_image"
+            android:gravity="center"
+            android:layout_marginLeft="22dp"
             />
-        <TextView
-            android:id="@+id/ad_price"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/ad_price_whole"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
             android:layout_toRightOf="@+id/ad_image"
-            android:layout_below="@id/ad_address"
-            android:layout_marginTop="50dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"/>
+            android:layout_below="@+id/ad_address"
+            >
+            <TextView
+                android:id="@+id/ad_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BAM per night" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancellation"
+            android:text="Free cancellation"
+            android:padding="2dp"
+            android:background="#4ce600"
+            android:layout_below="@id/ad_price_whole"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
 
@@ -61,6 +89,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground"
-        android:orientation="horizontal" />
+        android:orientation="horizontal" >
+
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

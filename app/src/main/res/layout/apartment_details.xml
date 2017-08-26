@@ -21,7 +21,7 @@
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"/>
+                android:layout_height="200dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,76 +63,252 @@
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:layout_below="@+id/info"
-                android:layout_marginBottom="13dp"
-                tools:context="bih.ba.smjestise.smjestise.ViewHolders.ApartmentDetails" />
-
+                android:layout_marginBottom="30dp"
+                tools:context="bih.ba.smjestise.smjestise.ViewHolders.ApartmentDetails"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/perks"
+                android:id="@+id/perks_linear"
                 android:layout_below="@+id/map">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:id="@+id/wifi"
-                    android:src="@drawable/wifi"
-                    />
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:id="@+id/parking"
-                    android:src="@drawable/parking"
-                    />
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:id="@+id/pets"
-                    android:src="@drawable/pets"
-                    />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/perks2"
-                android:layout_below="@+id/perks">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:id="@+id/breakfast"
-                    android:src="@drawable/breakfast"
-                    />
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:id="@+id/kitchen"
-                    android:src="@drawable/kitchen"
-                    />
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:id="@+id/bathroom"
-                    android:src="@drawable/bathroom"
-                    />
-
-            </LinearLayout>
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/reserve"
-                android:text="Make a reservation"/>
+                android:id="@+id/perks_naslov"
+                android:text="Perks at this apartment..."
+                android:layout_below="@+id/map"
+                android:textSize="20sp"
+                android:textColor="#00000a"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/button_selector2"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="3dp"
+                android:id="@+id/perks_list"
+                android:background="@drawable/button_selector2"
+                android:layout_below="@+id/perks_linear">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/perks_wifi"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_below="@+id/perks_linear">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="FREE"
+                       android:paddingLeft="3dp"
+                       android:paddingRight="3dp"
+                       android:paddingBottom="1dp"
+                       android:paddingTop="1dp"
+                       android:textColor="#009688"
+                       android:textSize="12sp"
+                       android:layout_marginLeft="5dp"
+                       android:layout_marginRight="8dp"
+                       android:background="#b2dfdb"
+                       />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wifi is available in all areas and is free of charge."/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/perks_breakfast"
+
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FREE"
+                        android:layout_marginRight="8dp"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingBottom="1dp"
+                        android:paddingTop="1dp"
+                        android:textColor="#009688"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="5dp"
+                        android:background="#b2dfdb"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Breakfast is included per your wish."/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/perks_pets">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FREE"
+                        android:layout_marginRight="8dp"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingBottom="1dp"
+                        android:paddingTop="1dp"
+                        android:textColor="#009688"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="5dp"
+                        android:background="#b2dfdb"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pets are allowed. No extra charges."/>
+                </LinearLayout>
+                    <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="7dp"
+                    android:id="@+id/perks_parking">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FREE"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:layout_marginRight="8dp"
+                            android:paddingBottom="1dp"
+                            android:paddingTop="1dp"
+                            android:textColor="#009688"
+                            android:background="#b2dfdb"
+                            android:textSize="12sp"
+                            android:layout_marginLeft="5dp"
+
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Free private parking is possible on site."/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="7dp"
+                        android:id="@+id/perks_kitchen"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FREE"
+                            android:layout_marginRight="8dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:paddingBottom="1dp"
+                            android:paddingTop="1dp"
+                            android:textColor="#009688"
+                            android:background="#b2dfdb"
+                            android:textSize="12sp"
+                            android:layout_marginLeft="5dp"
+
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="During your stay you have a personal kitchen available."/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="7dp"
+                        android:id="@+id/perks_bathroom"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FREE"
+                            android:layout_marginRight="8dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="3dp"
+                            android:paddingBottom="1dp"
+                            android:paddingTop="1dp"
+                            android:textColor="#009688"
+                            android:background="#b2dfdb"
+                            android:textSize="12sp"
+                            android:layout_marginLeft="5dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bathroom included."/>
+                    </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/ap_desc_all"
+                android:background="@drawable/button_selector2"
+                android:layout_below="@+id/perks_list">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Apartment description"
+                    android:textSize="20sp"
+                    android:textColor="#00000a"
+                    android:layout_marginBottom="4dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ap_desc"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClick"
+                    android:clickable="true"
+                    android:text="Read more"
+                    android:id="@+id/read_more"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/ap_desc_all"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/reserve"
+                    android:text="Reserve"
+                    android:drawablePadding="2dp"
+                    android:background="@drawable/button_reserve"
+                    android:drawableRight="@drawable/calendar"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/save"
+                    android:drawableRight="@drawable/ic_favourite"
+                    android:background="@drawable/button_save"
+                    android:drawablePadding="2dp"
+                    android:text="Save"/>
+            </LinearLayout>
         </RelativeLayout>
 
     </ScrollView>

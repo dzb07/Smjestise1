@@ -22,6 +22,4 @@
         android:icon="@drawable/ic_home2"
         android:title="Info"
         app:showAsAction="ifRoom"/>
-
-
 </menu>

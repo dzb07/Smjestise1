@@ -178,13 +178,25 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Budget price\n per night"/>
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1.5"
+                    android:hint="Desired currency"
+                    android:textSize="16sp"/>
+               <RadioGroup
+                   android:layout_width="wrap_content"
+                   android:layout_height="20dp"
+                   android:orientation="horizontal">
+                   <RadioButton
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="KM"
+                       android:id="@+id/KM"
+                       />
+                   <RadioButton
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="EUR"
+                       android:id="@+id/EUR"/>
+               </RadioGroup>
 
 
             </LinearLayout>
@@ -200,7 +212,7 @@
                     android:background="@drawable/button_selector2"
                     android:textStyle="bold"
                     android:text="Search"
-                    android:textColor="#ffffff"
+                    android:textColor="#000000"
                     android:id="@+id/search"/>
             </LinearLayout>
 
@@ -216,6 +228,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Don't miss these places:"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     />
             </LinearLayout>
             <HorizontalScrollView
@@ -235,11 +249,14 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="240dp"
+                        android:orientation="horizontal"
+                        android:layout_marginRight="7dp">
+                        <ImageButton
+                            android:layout_width="190dp"
                             android:layout_height="120dp"
-                            android:src="@drawable/sarajevo"/>
+                            android:src="@drawable/sarajevo"
+                            android:id="@+id/sarajevo"
+                            android:scaleType="centerCrop"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -249,11 +266,14 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="240dp"
+                        android:orientation="horizontal"
+                        android:layout_marginRight="7dp">
+                        <ImageButton
+                            android:layout_width="190dp"
                             android:layout_height="120dp"
-                            android:src="@drawable/mostar"/>
+                            android:src="@drawable/mostar"
+                            android:id="@+id/mostar"
+                            android:scaleType="centerCrop"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -263,11 +283,14 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="240dp"
+                        android:orientation="horizontal"
+                        android:layout_marginRight="7dp">
+                        <ImageButton
+                            android:layout_width="190dp"
                             android:layout_height="120dp"
-                            android:src="@drawable/hutovo_blato"/>
+                            android:src="@drawable/hutovo_blato"
+                            android:id="@+id/hutovo_blato"
+                            android:scaleType="centerCrop"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -277,11 +300,14 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="240dp"
-                            android:layout_height="120dp"
-                            android:src="@drawable/banja_luka"/>
+                        android:orientation="horizontal"
+                        android:layout_marginRight="7dp">
+                        <ImageButton
+                        android:layout_width="190dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/banja_luka"
+                        android:id="@+id/banja_luka"
+                        android:scaleType="centerCrop"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -291,11 +317,14 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="240dp"
+                        android:orientation="horizontal"
+                        android:layout_marginRight="7dp">
+                        <ImageButton
+                            android:layout_width="190dp"
                             android:layout_height="120dp"
-                            android:src="@drawable/bihac"/>
+                            android:src="@drawable/bihac"
+                            android:id="@+id/bihac"
+                            android:scaleType="centerCrop"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
