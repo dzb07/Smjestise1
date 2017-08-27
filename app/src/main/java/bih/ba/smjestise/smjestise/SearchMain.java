@@ -407,6 +407,8 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
             final Place place = places.get(0);
             CharSequence attributions = places.getAttributions();
             destinationcity=place.getName().toString();
+            final GlobalVars hostcity = ((GlobalVars) getApplicationContext());//need it to access check in from user choice
+            hostcity.setHostcity(destinationcity);
            /* mNameTextView.setText(Html.fromHtml(place.getName() + ""));
             mAddressTextView.setText(Html.fromHtml(place.getAddress() + ""));
             mIdTextView.setText(Html.fromHtml(place.getId() + ""));

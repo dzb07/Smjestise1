@@ -42,9 +42,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
     private double lat;
     private double longitude;
     HashMap<String, Integer> HashMapForLocalRes;
-    private ImageView wifi_image;
-    private ImageView parking_image;
-    private ImageView pets_image;
+
     private Button reserveButton;
     private TextView ap_desc;
 
@@ -76,8 +74,10 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
 
 
         if (getIntent().hasExtra("ad")) {
-            Apartments ad = (Apartments) getIntent().getSerializableExtra("ad");
+            final Apartments ad = (Apartments) getIntent().getSerializableExtra("ad");
             final GlobalVars globalVariable_prop_name = (GlobalVars) getApplicationContext(); //make a accessing point
+            final GlobalVars currency = (GlobalVars) getApplicationContext(); //make a accessing point
+
             ap_desc.setText(ad.getAp_desc());
             globalVariable_prop_name.setProperty_name(ad.prop_name);//set property name of global variable
             getSupportActionBar().setTitle(ad.prop_name);
@@ -134,7 +134,20 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                 perks_kitchen.setVisibility(View.GONE);
 
             }
+        /*on reserve button click*/
+            reserveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(ApartmentDetails.this, ReservationActivity.class);
+                    if (currency.getCurrency().equals("EUR"))
+                        intent.putExtra("price",ad.getPrice_eur());
+                    else
+                        intent.putExtra("price",ad.getPrice());
 
+                    startActivity(intent);
+                }
+            });
+        /*end reserve button*/
 
 
 
@@ -194,15 +207,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
 
 
 
-        /*on reserve button click*/
-        reserveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(ApartmentDetails.this, ReservationActivity.class);
-                startActivity(intent);
-            }
-        });
-        /*end reserve button*/
+
 
 
     }
