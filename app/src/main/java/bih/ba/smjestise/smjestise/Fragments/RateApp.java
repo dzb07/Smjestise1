@@ -7,10 +7,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
+import bih.ba.smjestise.smjestise.Helpers.RateApplicationAdapter;
+import bih.ba.smjestise.smjestise.Helpers.ReservationClass;
 import bih.ba.smjestise.smjestise.R;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,10 +38,13 @@ public class RateApp extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private EditText commentofUser;
+    private Button openCommentSection;
+    private Button submitRate;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private EditText comment;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,11 +83,49 @@ public class RateApp extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView=inflater.inflate(R.layout.fragment_rate_app, container, false);
+        final View rootView=inflater.inflate(R.layout.fragment_rate_app, container, false);
+        openCommentSection=(Button) rootView.findViewById(R.id.openComment);
+        final RatingBar mBar = (RatingBar) rootView.findViewById(R.id.ratingBar);
 
-        TextView openEdittext=(TextView)rootView.findViewById(R.id.openComment);
-        comment=(EditText) rootView.findViewById(R.id.comment);
+        final ArrayList<RateApplicationAdapter> rateObject = new ArrayList<>();
+        commentofUser=(EditText)rootView.findViewById(R.id.userComment);
 
+        openCommentSection.setOnClickListener(new View.OnClickListener() {
+                                                  @Override
+                                                  public void onClick(View view) {
+
+                                                      if(commentofUser.getVisibility()==View.VISIBLE)
+                                                          commentofUser.setVisibility(View.GONE);
+
+                                                      else
+                                                      commentofUser.setVisibility(View.VISIBLE);
+
+                                                  }
+
+        });
+
+
+        /*sending rate to database*/
+        submitRate=(Button) rootView.findViewById(R.id.submitRate);
+        submitRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                float rate=mBar.getRating();
+                String komentar=commentofUser.getText().toString();
+                Toast toast = Toast.makeText(getActivity(), "Your rate is "+rate,LENGTH_LONG);
+                toast.show();
+                rateObject.add(new RateApplicationAdapter(rate,komentar));
+
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference = database.getReference();
+                for (int i = 0; i < rateObject.size(); i++) {
+                    databaseReference.child("AppRatings").push().setValue(rateObject.get(i));
+                }
+
+            }
+        });
+        /*end of sending rate to database*/
 
 
         return rootView;
@@ -103,10 +156,7 @@ public class RateApp extends Fragment {
         mListener = null;
     }
 
-    public void onClick(View v) {
 
-        comment.setVisibility(View.VISIBLE);
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -124,3 +174,4 @@ public class RateApp extends Fragment {
 
 
 }
+

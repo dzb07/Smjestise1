@@ -24,7 +24,15 @@ public class GlobalVars extends Application {
     public static String currency; //making it static in order to access it in ApartmentViewHolder class
     private long days_difference;
     private String hostcity;
+    private String currentUser;
 
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
     /*variables needed for user reservation info to be stored*/
 
     private String first_name;

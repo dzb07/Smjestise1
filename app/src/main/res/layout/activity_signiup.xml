@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="bih.ba.smjestise.smjestise.LoginActivity">
+    tools:context="bih.ba.smjestise.smjestise.Signiup">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,11 +11,10 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User Log in"
+            android:text="Register User"
             android:textAlignment="center"
             android:textSize="25sp"/>
 
@@ -38,17 +37,17 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log in"
+            android:text="Register"
             android:layout_margin="15dp"
 
-            android:id="@+id/buttonSignin"/>
+            android:id="@+id/buttonRegister"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewSignup"
+            android:id="@+id/textViewSignin"
             android:textAlignment="center"
-            android:text="Don't have an account? Please Sign up here"/>
+            android:text="Already registred. Sign in"/>
 
     </LinearLayout>
 

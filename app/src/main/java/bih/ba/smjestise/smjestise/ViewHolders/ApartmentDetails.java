@@ -23,12 +23,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.support.v4.app.FragmentActivity;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
+import bih.ba.smjestise.smjestise.Helpers.ReservationClass;
+import bih.ba.smjestise.smjestise.Helpers.SavedApartments;
 import bih.ba.smjestise.smjestise.R;
 import bih.ba.smjestise.smjestise.ReservationActivity;
 
@@ -42,9 +49,11 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
     private double lat;
     private double longitude;
     HashMap<String, Integer> HashMapForLocalRes;
+    private FirebaseAuth firebaseAuth;
 
     private Button reserveButton;
     private TextView ap_desc;
+    private Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +69,13 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
         LinearLayout perks_breakfast= (LinearLayout)findViewById(R.id.perks_breakfast);
         LinearLayout perks_kitchen= (LinearLayout)findViewById(R.id.perks_kitchen);
         LinearLayout perks_bathroom= (LinearLayout)findViewById(R.id.perks_bathroom);
+        saveButton=(Button) findViewById(R.id.save);
         ap_desc=(TextView) findViewById(R.id.ap_desc);
         reserveButton=(Button) findViewById(R.id.reserve);
         ap_desc.setMaxLines(3);
+
+        final ArrayList<SavedApartments> savedApartments = new ArrayList<>();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -148,7 +161,21 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                 }
             });
         /*end reserve button*/
+            final GlobalVars propName = (GlobalVars) getApplicationContext(); //make a accessing point
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    final DatabaseReference databaseReference = database.getReference();
+                    savedApartments.add(new SavedApartments(firebaseAuth.getInstance().getCurrentUser().getUid(),propName.getProperty_name(),propName.getHostcity()));
+                    for (int i = 0; i < savedApartments.size(); i++) {
+                        databaseReference.child("SavedApartments/"+firebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(savedApartments.get(i));
+                    }
 
+                    /*set current user's id to globalvar */
+                    propName.setCurrentUser(firebaseAuth.getInstance().getCurrentUser().getUid());
+                }
+            });
 
 
         }

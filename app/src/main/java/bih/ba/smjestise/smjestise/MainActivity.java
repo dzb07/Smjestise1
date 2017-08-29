@@ -18,6 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +30,8 @@ import bih.ba.smjestise.smjestise.Fragments.AddYourProperty;
 import bih.ba.smjestise.smjestise.Fragments.Bookings;
 import bih.ba.smjestise.smjestise.Fragments.HomeFragment;
 import bih.ba.smjestise.smjestise.Fragments.RateApp;
+import bih.ba.smjestise.smjestise.Fragments.SavedProperties;
+import bih.ba.smjestise.smjestise.Helpers.SavedApartments;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -34,12 +39,16 @@ public class MainActivity extends AppCompatActivity
         AboutApp.OnFragmentInteractionListener,
         Bookings.OnFragmentInteractionListener,
         AddYourProperty.OnFragmentInteractionListener,
-        RateApp.OnFragmentInteractionListener{
+        RateApp.OnFragmentInteractionListener,
+        SavedProperties.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
 
 
         FragmentManager fragmentManager=getSupportFragmentManager();
@@ -136,6 +145,13 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, rateFragment);
             fragmentTransaction.commit();
         }
+        else if (id == R.id.nav_saved) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            SavedProperties savedFragment = new SavedProperties();
+            fragmentTransaction.replace(R.id.fragment_container, savedFragment);
+            fragmentTransaction.commit();
+        }
 
 
 
@@ -148,4 +164,5 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
 }
