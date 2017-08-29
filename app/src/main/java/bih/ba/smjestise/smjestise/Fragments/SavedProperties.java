@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -96,12 +97,12 @@ public class SavedProperties extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView=inflater.inflate(R.layout.fragment_saved_properties, container, false);
+        final View rootView=inflater.inflate(R.layout.fragment_saved_properties, container, false);
         userID= firebaseAuth1.getInstance().getCurrentUser().getUid();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = database.getReference();
 
-        databaseReference.child("SavedApartments/LITIotKYqobN8aYxsnljLKZC4b83").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("SavedApartments/"+userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -116,6 +117,7 @@ public class SavedProperties extends Fragment {
 
                         ads.add(r);
                         mAdAdapter.notifyDataSetChanged();
+
 
 
                 }

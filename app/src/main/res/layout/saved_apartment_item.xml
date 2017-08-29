@@ -22,6 +22,7 @@
             android:id="@+id/ad_name01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="You don't have any apartments saved!"
             android:gravity="center"
             android:padding="10dp"
             android:textSize="15sp"

@@ -7,27 +7,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import bih.ba.smjestise.smjestise.R;
 import bih.ba.smjestise.smjestise.ViewHolders.SavedApartmentsViewHolder;
 
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+
 /**
  * Created by Džana on 29.8.2017.
  */
 
 public class SavedApartmentsAdapter extends RecyclerView.Adapter<SavedApartmentsViewHolder> {
-    ArrayList<SavedApartments> savedApartments;
     private  Button removeSaved;
     private Context context;
-
-    ;
+    private FirebaseAuth firebaseAuth;
+    private ArrayList<SavedApartments> data;
 
     private LayoutInflater inflater;
+
+    private int previousPosition = 0;
     public SavedApartmentsAdapter(ArrayList<SavedApartments> mAds)
     {
-        this.savedApartments = mAds;
+        this.data = mAds;
     }
 
     @Override
@@ -38,9 +50,11 @@ public class SavedApartmentsAdapter extends RecyclerView.Adapter<SavedApartments
     }
 
     public void onBindViewHolder(final SavedApartmentsViewHolder holder, int position) {
-        final SavedApartments image = savedApartments.get(position);
-        holder.bindAd(image);
-        final SavedApartments savedInfo=savedApartments.get(position);
+        final SavedApartments apartment = data.get(position);
+        holder.bindAd(apartment);
+        //SavedApartments savedInfo=savedApartments.get(position);
+        final int currentPosition = position;
+        final SavedApartments infoData = data.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +68,7 @@ public class SavedApartmentsAdapter extends RecyclerView.Adapter<SavedApartments
         removeSaved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                removeItem(savedInfo);
+                removeItem(infoData);
             }
         });
 
@@ -69,18 +83,41 @@ public class SavedApartmentsAdapter extends RecyclerView.Adapter<SavedApartments
 
 
 
+
+
         // Set a click listener for item remove button
     }
     @Override
     public int getItemCount() {
-        return savedApartments.size();
+        return data.size();
     }
 
     private void removeItem(SavedApartments infoData) {
 
-        int currPosition = savedApartments.indexOf(infoData);
-        savedApartments.remove(currPosition);
+        int currPosition = data.indexOf(infoData);
+        String apartmentToDelete = data.get(currPosition).getProp_name();
+        data.remove(currPosition);
         notifyItemRemoved(currPosition);
-    }}
+       // Toast.makeText(context,apartmentToDelete,Toast.LENGTH_LONG).show();
+
+           DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+            Query queryProperty = ref.child("SavedApartments/" + firebaseAuth.getInstance()
+                    .getCurrentUser().getUid()).orderByChild("prop_name").equalTo(apartmentToDelete );
+
+             queryProperty.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot propertySnapshot : dataSnapshot.getChildren()) {
+                        propertySnapshot.getRef().removeValue();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(TAG, "onCancelled", databaseError.toException());
+                }
+            });
+        }
+    }
 
 
