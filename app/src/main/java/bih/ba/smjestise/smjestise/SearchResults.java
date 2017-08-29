@@ -98,21 +98,44 @@ public class SearchResults extends AppCompatActivity {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child : children) {
 
-                    Apartments r = child.getValue(Apartments.class);
+                   final Apartments r = child.getValue(Apartments.class);
                     //globalVariable_num_of_rooms.getNumOfRoomsVar()
                     if (roomsNO.getNumOfRoomsVar() <= r.getNum_of_rooms()) {
 
-                        controller = checkReserved(r.getProp_name());
+                        FirebaseDatabase.getInstance().getReference().child("Reserved").child(r.getProp_name())
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if (controller == 1) {
-                            continue;
-                        }
+                                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                                        for (DataSnapshot child : children) {
+
+                                            ReservationClass reserved = child.getValue(ReservationClass.class);
+
+                                            if (reserved.getTimestamp1() == 100) {
+
+                                                // counter_value.setCounter(1);
+
+                                                ads.remove(r);
+                                                break;
+                                            } else {
+
+                                                ads.add(r);
+                                                mAdAdapter.notifyDataSetChanged();
+
+                                            }
+
+                                        }
+
+                                    }
 
 
-                        ads.add(r);
-                        mAdAdapter.notifyDataSetChanged();
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+
                     }
-
                 }
             }
 
@@ -161,45 +184,6 @@ public class SearchResults extends AppCompatActivity {
         }
     }
 
-    public int checkReserved(String aa) {
-        final GlobalVars counter_value = (GlobalVars) getApplicationContext(); //make a accessing point
-
-        //Toast.makeText(getApplicationContext(),aa,Toast.LENGTH_LONG).show();
-        counter1 = 0;
-        FirebaseDatabase.getInstance().getReference().child("Reserved").child(aa)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                        for (DataSnapshot child : children) {
-                            ReservationClass reserved = child.getValue(ReservationClass.class);
-                            String mys1 = String.valueOf(reserved.getTimestamp1());
-
-                            // Toast.makeText(getApplicationContext(),mys1,Toast.LENGTH_LONG).show();
-                            if (reserved.getTimestamp1() == 1089) {
-
-                                counter_value.setCounter(1);
-                            } else {
-                                counter_value.setCounter(0);
-
-                            }
-                        }
-                    }
-
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-        String mys = String.valueOf(counter_value.getCounter());
-        //Toast.makeText(getApplicationContext(),mys,Toast.LENGTH_LONG).show();
-        if (counter_value.getCounter() == 1)
-            return 1;
-        else
-            return 0;
-
-    }
 
 
     @Override
