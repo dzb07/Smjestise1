@@ -20,13 +20,19 @@ public class ReservationClass {
     String useraddress;
     String userCity;
     String userPhoneNumber;
+    String price_to_pay;
+    long reservation_made_on;
+    String userID;
 
-    public ReservationClass() {
+    public String getUserID() {
+        return userID;
     }
 
-    public ReservationClass(String prop_name, Boolean reserved, String checkin, String checkout,
-                            long timestamp1, long timestamp2,
-                            String host_city, String f_name, String l_name, String emailAddress, String useraddress, String userCity, String userPhoneNumber) {
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public ReservationClass(String prop_name, Boolean reserved, String checkin, String checkout, long timestamp1, long timestamp2, String host_city, String f_name, String l_name, String emailAddress, String useraddress, String userCity, String userPhoneNumber, String price_to_pay, long reservation_made_on,String userID) {
         this.prop_name = prop_name;
         this.reserved = reserved;
         this.checkin = checkin;
@@ -40,7 +46,34 @@ public class ReservationClass {
         this.useraddress = useraddress;
         this.userCity = userCity;
         this.userPhoneNumber = userPhoneNumber;
+        this.price_to_pay = price_to_pay;
+        this.reservation_made_on = reservation_made_on;
+        this.userID=userID;
     }
+
+    public long getReservation_made_on() {
+        return reservation_made_on;
+    }
+
+    public void setReservation_made_on(long reservation_made_on) {
+        this.reservation_made_on = reservation_made_on;
+    }
+
+
+
+
+    public String getPrice_to_pay() {
+        return price_to_pay;
+    }
+
+    public void setPrice_to_pay(String price_to_pay) {
+        this.price_to_pay = price_to_pay;
+    }
+
+    public ReservationClass() {
+    }
+
+
 
 
     public String getF_name() {

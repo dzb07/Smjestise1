@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +30,7 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
  */
 
 public class SavedApartmentsAdapter extends RecyclerView.Adapter<SavedApartmentsViewHolder> {
-    private  Button removeSaved;
+    private  ImageView removeSaved;
     private Context context;
     private FirebaseAuth firebaseAuth;
     private ArrayList<SavedApartments> data;
@@ -45,7 +46,7 @@ public class SavedApartmentsAdapter extends RecyclerView.Adapter<SavedApartments
     @Override
     public SavedApartmentsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout.saved_apartment_item, parent, false);
-        removeSaved=(Button) inflatedView.findViewById(R.id.removeSaved);
+        removeSaved=(ImageView) inflatedView.findViewById(R.id.removeSaved);
         return new SavedApartmentsViewHolder(inflatedView);
     }
 
@@ -72,13 +73,7 @@ public class SavedApartmentsAdapter extends RecyclerView.Adapter<SavedApartments
             }
         });
 
-       /* holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                removeItem(savedInfo);
-                return true;
-            }
-        });*/
+
 
 
 
@@ -98,13 +93,18 @@ public class SavedApartmentsAdapter extends RecyclerView.Adapter<SavedApartments
         String apartmentToDelete = data.get(currPosition).getProp_name();
         data.remove(currPosition);
         notifyItemRemoved(currPosition);
-       // Toast.makeText(context,apartmentToDelete,Toast.LENGTH_LONG).show();
 
-           DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        deleteFromDatabase(apartmentToDelete);
+
+
+        }
+
+        public void deleteFromDatabase(String apartment){
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
             Query queryProperty = ref.child("SavedApartments/" + firebaseAuth.getInstance()
-                    .getCurrentUser().getUid()).orderByChild("prop_name").equalTo(apartmentToDelete );
+                    .getCurrentUser().getUid()).orderByChild("prop_name").equalTo(apartment);
 
-             queryProperty.addListenerForSingleValueEvent(new ValueEventListener() {
+            queryProperty.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot propertySnapshot : dataSnapshot.getChildren()) {

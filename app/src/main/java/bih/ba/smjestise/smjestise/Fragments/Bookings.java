@@ -1,26 +1,45 @@
 package bih.ba.smjestise.smjestise.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 import bih.ba.smjestise.smjestise.Helpers.ReservationClass;
+import bih.ba.smjestise.smjestise.Helpers.SavedApartments;
+import bih.ba.smjestise.smjestise.Helpers.SavedApartmentsAdapter;
+import bih.ba.smjestise.smjestise.Helpers.UserReservationsAdapter;
+import bih.ba.smjestise.smjestise.MainActivity;
 import bih.ba.smjestise.smjestise.R;
+import bih.ba.smjestise.smjestise.SearchMain;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,12 +54,23 @@ public class Bookings extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private FirebaseAuth firebaseAuth1;
+    private ReservationClass user;
+    StaggeredGridLayoutManager mStaggeredLayoutManager;
+    RecyclerView mRecyclerView;
+    UserReservationsAdapter mAdAdapter;
+    private String userID;
+    final ArrayList<ReservationClass> ads = new ArrayList<ReservationClass>();
+    private LinearLayout noReservations;
+    private ImageView goToSearchMain;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     TextView details;
     private OnFragmentInteractionListener mListener;
+    private Button btn;
+    private FirebaseAuth firebaseAuth;
+
 
     public Bookings() {
         // Required empty public constructor
@@ -77,42 +107,68 @@ public class Bookings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView=inflater.inflate(R.layout.fragment_bookings, container, false);
-        details=(TextView)rootView.findViewById(R.id.detaillll);
-        /*creating access points*/
-
-        final GlobalVars fr_name = (GlobalVars) getActivity().getApplicationContext(); //make a accessing point
-        final GlobalVars ls_name = (GlobalVars)  getActivity().getApplicationContext(); //make a accessing point
-        final GlobalVars emailadd = (GlobalVars)  getActivity().getApplicationContext(); //make a accessing point
+        final View rootView=inflater.inflate(R.layout.fragment_bookings, container, false);
+        userID= firebaseAuth1.getInstance().getCurrentUser().getUid();
+        noReservations=(LinearLayout)rootView.findViewById(R.id.noReservations);
+        goToSearchMain=(ImageView)rootView.findViewById(R.id.goToSearchMain);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = database.getReference();
 
-        databaseReference.child("UserReservations").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for (DataSnapshot child : children) {
+        /*check if no reservations exist for this particular user, IF EXISTS DISPLAY IT*/
+        FirebaseDatabase.getInstance().getReference().child("UserReservations")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(userID)) {
+                            Iterable<DataSnapshot> children = dataSnapshot.child(userID).getChildren();
+                            for (DataSnapshot child : children) {
 
-                    ReservationClass r = child.getValue(ReservationClass.class);
-                    //globalVariable_num_of_rooms.getNumOfRoomsVar()
-                    if (emailadd.getEmail().equals(r.getEmailAddress()) && emailadd.getEmail()!=null) {
-                        details.setText(r.getF_name());
+                                ReservationClass r = child.getValue(ReservationClass.class);
+                                //globalVariable_num_of_rooms.getNumOfRoomsVar()
 
 
+                                ads.add(r);
+                                mAdAdapter.notifyDataSetChanged();
 
-                      //  ads.add(r);
-                        //mAdAdapter.notifyDataSetChanged();
+
+                            }
+                        }
+                        else{
+                            noReservations.setVisibility(View.VISIBLE);
+                        }
                     }
 
-                }
-            }
 
+                    @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+        mAdAdapter = new UserReservationsAdapter(ads);
+
+
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView03);
+        mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+
+        mRecyclerView.setAdapter(mAdAdapter);
+
+
+
+        //open searhMain on click of calendar
+        goToSearchMain.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), SearchMain.class);
+                startActivity(intent);
             }
         });
+
+
+
 
 
         return rootView;
@@ -124,6 +180,8 @@ public class Bookings extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -156,4 +214,12 @@ public class Bookings extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
+
+
+
+
+
 }

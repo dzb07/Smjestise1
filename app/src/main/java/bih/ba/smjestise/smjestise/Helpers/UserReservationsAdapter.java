@@ -1,6 +1,8 @@
 package bih.ba.smjestise.smjestise.Helpers;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,11 +88,15 @@ public class UserReservationsAdapter extends RecyclerView.Adapter<UserReservatio
         String apartmentToDelete = data.get(currPosition).getProp_name();
         data.remove(currPosition);
         notifyItemRemoved(currPosition);
-        // Toast.makeText(context,apartmentToDelete,Toast.LENGTH_LONG).show();
+        deleteFromDatabase(apartmentToDelete);
 
+
+    }
+
+    public void deleteFromDatabase(String apartment){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         Query queryProperty = ref.child("UserReservations/" + firebaseAuth.getInstance()
-                .getCurrentUser().getUid()).orderByChild("prop_name").equalTo(apartmentToDelete);
+                .getCurrentUser().getUid()).orderByChild("prop_name").equalTo(apartment);
 
         queryProperty.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -105,7 +111,24 @@ public class UserReservationsAdapter extends RecyclerView.Adapter<UserReservatio
                 Log.e(TAG, "onCancelled", databaseError.toException());
             }
         });
+
+
+
+        Query queryProperty2 = ref.child("Reserved/" + apartment).orderByChild("userID").equalTo(firebaseAuth.getInstance().getCurrentUser().getUid() //get current user ID
+);
+
+        queryProperty2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot propertySnapshot : dataSnapshot.getChildren()) {
+                    propertySnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+        });
     }
 }
-
-

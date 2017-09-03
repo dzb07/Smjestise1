@@ -1,6 +1,7 @@
 package bih.ba.smjestise.smjestise.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,12 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +31,7 @@ import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import bih.ba.smjestise.smjestise.Helpers.SavedApartments;
 import bih.ba.smjestise.smjestise.Helpers.SavedApartmentsAdapter;
 import bih.ba.smjestise.smjestise.R;
+import bih.ba.smjestise.smjestise.SearchMain;
 import bih.ba.smjestise.smjestise.ViewHolders.SavedApartmentsViewHolder;
 
 /**
@@ -49,13 +54,13 @@ public class SavedProperties extends Fragment {
     RecyclerView mRecyclerView;
     SavedApartmentsAdapter mAdAdapter;
     final ArrayList<SavedApartments> ads = new ArrayList<SavedApartments>();
-
+    private LinearLayout noSavedApartments;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     DatabaseReference db;
     private DatabaseReference mDatabase;
-
+    private ImageView goToSearchMain;
     ListView lv;
 
     private OnFragmentInteractionListener mListener;
@@ -99,27 +104,31 @@ public class SavedProperties extends Fragment {
         // Inflate the layout for this fragment
         final View rootView=inflater.inflate(R.layout.fragment_saved_properties, container, false);
         userID= firebaseAuth1.getInstance().getCurrentUser().getUid();
+        noSavedApartments=(LinearLayout)rootView.findViewById(R.id.noSavedApartments);
+        goToSearchMain=(ImageView)rootView.findViewById(R.id.goToSearchMain);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = database.getReference();
 
-        databaseReference.child("SavedApartments/"+userID).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("SavedApartments").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(userID)) {
+                    Iterable<DataSnapshot> children = dataSnapshot.child(userID).getChildren();
+                    for (DataSnapshot child : children) {
 
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for (DataSnapshot child : children) {
-
-                    SavedApartments r = child.getValue(SavedApartments.class);
-                    //globalVariable_num_of_rooms.getNumOfRoomsVar()
-
-
+                        SavedApartments r = child.getValue(SavedApartments.class);
+                        //globalVariable_num_of_rooms.getNumOfRoomsVar()
 
 
                         ads.add(r);
                         mAdAdapter.notifyDataSetChanged();
 
 
-
+                    }
+                }
+                else{
+                    noSavedApartments.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -140,7 +149,13 @@ public class SavedProperties extends Fragment {
         mRecyclerView.setAdapter(mAdAdapter);
 
 
-
+        goToSearchMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), SearchMain.class);
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }

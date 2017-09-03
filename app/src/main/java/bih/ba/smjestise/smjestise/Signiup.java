@@ -49,7 +49,7 @@ public class Signiup extends AppCompatActivity implements View.OnClickListener {
         if(firebaseAuth.getCurrentUser()!=null){
             //start profile activity, meaning main activity
             finish();
-            startActivity(new Intent(Signiup.this,MainActivity.class));
+            startActivity(new Intent(Signiup.this,LoginActivity.class));
 
         }
     }

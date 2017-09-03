@@ -9,17 +9,17 @@
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/booked"
         android:enabled="true"
-        android:icon="@drawable/ic_home2"
+        android:icon="@drawable/booked"
         android:title="Booked"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/favourites"
         android:enabled="true"
-        android:icon="@drawable/ic_home2"
+        android:icon="@drawable/ic_favourite"
         android:title="Favourites"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/aboutinfo"
         android:enabled="true"
-        android:icon="@drawable/ic_home2"
+        android:icon="@drawable/info"
         android:title="Info"
         app:showAsAction="ifRoom"/>
 </menu>

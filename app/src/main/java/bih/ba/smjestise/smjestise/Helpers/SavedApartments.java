@@ -1,8 +1,5 @@
 package bih.ba.smjestise.smjestise.Helpers;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 /**
  * Created by Džana on 28.8.2017.
  */
@@ -11,6 +8,22 @@ public class SavedApartments {
     private String firebaseUserId;
     private String prop_name;
     private String host_city;
+    long saved_on;
+
+    public long getSaved_on() {
+        return saved_on;
+    }
+
+    public SavedApartments(String firebaseUserId, String prop_name, String host_city, long saved_on) {
+        this.firebaseUserId = firebaseUserId;
+        this.prop_name = prop_name;
+        this.host_city = host_city;
+        this.saved_on = saved_on;
+    }
+
+    public void setSaved_on(long saved_on) {
+        this.saved_on = saved_on;
+    }
 
     public SavedApartments(String firebaseUserId, String prop_name, String host_city) {
         this.firebaseUserId = firebaseUserId;

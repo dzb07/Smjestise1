@@ -24,25 +24,33 @@
             android:layout_height="wrap_content"
             android:text="You don't have any apartments saved!"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="5dp"
             android:textSize="15sp"
             android:textStyle="bold" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ad_address01"
             android:layout_below="@+id/ad_name01"
-            android:gravity="center"
-            android:layout_marginLeft="22dp"
+            android:gravity="center_horizontal"
+            android:text="No city found"
             />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remove"
-        android:id="@+id/removeSaved"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ad_address01"
+            android:id="@+id/date_when_saved"
+            android:gravity="center_horizontal"
+            android:text="No date available"/>
+
+   <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/ic_cancel"
+       android:layout_alignParentRight="true"
+       android:id="@+id/removeSaved"
+       android:clickable="true"/>
 
     </RelativeLayout>
 

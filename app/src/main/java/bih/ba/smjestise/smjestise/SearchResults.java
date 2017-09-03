@@ -91,7 +91,7 @@ public class SearchResults extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = database.getReference();
 
-        databaseReference.child(host_city).orderByChild("price").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Apartments").child(host_city).orderByChild("price").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -101,6 +101,8 @@ public class SearchResults extends AppCompatActivity {
                    final Apartments r = child.getValue(Apartments.class);
                     //globalVariable_num_of_rooms.getNumOfRoomsVar()
                     if (roomsNO.getNumOfRoomsVar() <= r.getNum_of_rooms()) {
+                        final Date datecheckedIN_user = new Date(roomsNO.getT1());
+                        final Date datecheckedOUT_user = new Date(roomsNO.getT2());
 
                         FirebaseDatabase.getInstance().getReference().child("Reserved").child(r.getProp_name())
                                 .addValueEventListener(new ValueEventListener() {
@@ -111,8 +113,11 @@ public class SearchResults extends AppCompatActivity {
                                         for (DataSnapshot child : children) {
 
                                             ReservationClass reserved = child.getValue(ReservationClass.class);
+                                            Date datecheckedIN_reserved = new Date(reserved.getTimestamp1());
+                                            Date datecheckedOUT_reserved = new Date(reserved.getTimestamp2());
 
-                                            if (reserved.getTimestamp1() == 100) {
+                                            if ((datecheckedIN_user.after(datecheckedIN_reserved) && datecheckedIN_user.before(datecheckedOUT_reserved))
+                                                    || (datecheckedOUT_user.after(datecheckedIN_reserved) && datecheckedOUT_reserved.before(datecheckedOUT_reserved))) {
 
                                                 // counter_value.setCounter(1);
 
@@ -134,9 +139,27 @@ public class SearchResults extends AppCompatActivity {
                                     public void onCancelled(DatabaseError databaseError) {
                                     }
                                 });
+                        /*code to check if that particular apartment is not reserved att all*/
+                        FirebaseDatabase.getInstance().getReference().child("Reserved")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (!dataSnapshot.child(r.getProp_name()).exists()) { //if its not in database of resreved
+                                            ads.add(r);//add it
+                                            mAdAdapter.notifyDataSetChanged();
 
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+
+
+                        }
                     }
-                }
+
             }
 
             @Override
@@ -145,6 +168,7 @@ public class SearchResults extends AppCompatActivity {
             }
         });
 
+        /*end of checking if apartment is not reserved at all*/
 
         mAdAdapter = new ApartmentAdapter(ads);
 

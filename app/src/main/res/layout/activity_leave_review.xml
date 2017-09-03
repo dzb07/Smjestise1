@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="bih.ba.smjestise.smjestise.LeaveReview"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/b02"
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/background_for_review"
+        android:gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="When leaving a review for a certain property, please take into consideration following things:"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="\ncomfort\nposition\nfeatures\nvalue for money \n"
+            android:textStyle="italic"/>
+
+        <RatingBar
+            android:id="@+id/ratingOfProperty"
+            android:numStars="5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:theme="@style/CustomRatingBar"/>
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:inputType="text|textMultiLine"
+            android:id="@+id/commentOnProperty"
+            android:hint="Comment..."
+            />
+
+        <Button
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:id="@+id/submitReview"
+            android:background="@drawable/button_transparent_border"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

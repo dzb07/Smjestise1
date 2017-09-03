@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,17 +99,32 @@ public class HomeFragment extends Fragment {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId())  {
                     case R.id.home:
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                        HomeFragment fragment = new HomeFragment();
-                        fm.beginTransaction().add(R.id.fragment_container,fragment).commit();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        HomeFragment homeFragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+                        fragmentTransaction.commit();
                         break;
                     case R.id.booked:
-                        Intent intent_booked = new Intent(context, SearchMain.class);
-                        startActivity(intent_booked);
+                        FragmentManager fragmentManager1 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                        Bookings bookingFragment = new Bookings();
+                        fragmentTransaction1.replace(R.id.fragment_container, bookingFragment);
+                        fragmentTransaction1.commit();
                         break;
                     case R.id.favourites:
-                        Intent intent_favourites = new Intent(context, SearchMain.class);
-                        startActivity(intent_favourites);
+                        FragmentManager fragmentManager2 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                        SavedProperties savedFragment = new SavedProperties();
+                        fragmentTransaction2.replace(R.id.fragment_container, savedFragment);
+                        fragmentTransaction2.commit();
+                        break;
+                    case R.id.aboutinfo:
+                        FragmentManager fragmentManager3=getFragmentManager();
+                        FragmentTransaction fragmentTransaction3=fragmentManager3.beginTransaction();
+                        AboutApp aboutFragment=new AboutApp();
+                        fragmentTransaction3.replace(R.id.fragment_container,aboutFragment);
+                        fragmentTransaction3.commit();
                         break;
                 }
                 return true;
@@ -125,6 +141,11 @@ public class HomeFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        HomeFragment homeFragment = new HomeFragment();
+        fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+        fragmentTransaction.commit();
     }
 
     @Override

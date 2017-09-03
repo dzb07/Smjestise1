@@ -3,25 +3,20 @@ package bih.ba.smjestise.smjestise;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import java.util.Locale;
 
-import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 import bih.ba.smjestise.smjestise.Helpers.ReservationClass;
 
@@ -41,6 +36,8 @@ public class ReservationActivity extends AppCompatActivity {
     private EditText userAddress;
     private EditText userCity;
     private EditText userPhoneNumber;
+    private FirebaseAuth firebaseAuth1;
+    private String userID;
 
 
 
@@ -48,6 +45,9 @@ public class ReservationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
+
+
+        userID= firebaseAuth1.getInstance().getCurrentUser().getUid(); //get current user ID
 
         TextView ap=(TextView) findViewById(R.id.apartman_za_rez);
         final ArrayList<ReservationClass> reservation = new ArrayList<>();
@@ -93,8 +93,9 @@ public class ReservationActivity extends AppCompatActivity {
         pricePay=(TextView)findViewById(R.id.price_to_pay01);
         pricePay.setText("Total price: "+price_to_pay+ currency.getCurrency());
         final String p_name=globalVariable_prop_name.getProperty_name();
-        /*sending data to ReservationClass*/
 
+        /*sending data to ReservationClass*/
+        final String totalPrice=price_to_pay+currency.getCurrency(); //send total price to pay with currency in form of string
 
         /*end of sending data to ReservationClass*/
 
@@ -128,7 +129,7 @@ public class ReservationActivity extends AppCompatActivity {
                 reservation.add(new ReservationClass(p_name,true,globalVariable_checkin.getCheckIN(),
                         globalVariable_checkout.getCheckOUT(),
                         t1.getT1(),t2.getT2(),hostCity.getHostcity(),f_name_value,l_name_value,emailAddress_value,
-                        userAddress_value,userCity_value,userPhoneNumber_value));
+                        userAddress_value,userCity_value,userPhoneNumber_value,totalPrice,System.currentTimeMillis(),userID));
 
                 String mGroupId = databaseReference.push().getKey();
                 /*store data into Reserved Node*/
@@ -138,18 +139,30 @@ public class ReservationActivity extends AppCompatActivity {
 
                 /*store data into UserReservations Node*/
                 for (int i = 0; i < reservation.size(); i++) {
-                    databaseReference.child("UserReservations").push().setValue(reservation.get(i));
+                    databaseReference.child("UserReservations/"+userID).push().setValue(reservation.get(i));
                 }
                 fr_name.setFirst_name(f_name_value);
                 ls_name.setLast_name(l_name_value);
                 emailadd.setEmail(emailAddress_value);
 
 
-                Intent intentFinal=new Intent(ReservationActivity.this,FinalActivity01.class);
+                Intent intentFinal=new Intent(ReservationActivity.this,Payment.class);
                 startActivity(intentFinal);
             }
 
         });
+
+
+        /*get current date and send it to global var current date as string*/
+        //for accessing *reservation made on*/
+
+
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(System.currentTimeMillis());
+        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        propName.setCurrent_date(date);
+
+
 
 
 

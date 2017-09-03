@@ -3,6 +3,7 @@ package bih.ba.smjestise.smjestise.ViewHolders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,18 +25,26 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
+import bih.ba.smjestise.smjestise.Fragments.SavedProperties;
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 import bih.ba.smjestise.smjestise.Helpers.ReservationClass;
 import bih.ba.smjestise.smjestise.Helpers.SavedApartments;
+import bih.ba.smjestise.smjestise.LeaveReview;
 import bih.ba.smjestise.smjestise.R;
 import bih.ba.smjestise.smjestise.ReservationActivity;
 
@@ -50,17 +59,22 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
     private double longitude;
     HashMap<String, Integer> HashMapForLocalRes;
     private FirebaseAuth firebaseAuth;
-
+    String userID;
     private Button reserveButton;
     private TextView ap_desc;
     private Button saveButton;
+    private Button leaveReview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.apartment_details);
 
-        TextView property_name = (TextView) findViewById(R.id.property_name);
+        final GlobalVars globalVariable = (GlobalVars) getApplicationContext(); //make a accessing point
+        final GlobalVars globalVariable01 = (GlobalVars) getApplicationContext(); //make a accessing point
+
+
+        final TextView property_name = (TextView) findViewById(R.id.property_name);
         TextView property_city = (TextView) findViewById(R.id.property_city);
         TextView property_address = (TextView) findViewById(R.id.property_address);
         LinearLayout perks_wifi= (LinearLayout)findViewById(R.id.perks_wifi);
@@ -73,6 +87,50 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
         ap_desc=(TextView) findViewById(R.id.ap_desc);
         reserveButton=(Button) findViewById(R.id.reserve);
         ap_desc.setMaxLines(3);
+        userID= firebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        /*open comment section*/
+        leaveReview=(Button) findViewById(R.id.writeComment);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = database.getReference();
+        FirebaseDatabase.getInstance().getReference().child("Reserved").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(globalVariable.getProperty_name())) {
+                    Iterable<DataSnapshot> children = dataSnapshot.child(globalVariable.getProperty_name()).getChildren();
+                    for (DataSnapshot child : children) {
+                        ReservationClass reserved = child.getValue(ReservationClass.class);
+                        if (reserved.getUserID().equals(userID)) {
+                            leaveReview.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+                else {
+                    leaveReview.setVisibility(View.GONE);
+                }
+
+
+            }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+        leaveReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(ApartmentDetails.this, LeaveReview.class);
+                startActivity(i);
+
+            }
+            
+        });
 
         final ArrayList<SavedApartments> savedApartments = new ArrayList<>();
 
@@ -167,13 +225,21 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                 public void onClick(View view) {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     final DatabaseReference databaseReference = database.getReference();
-                    savedApartments.add(new SavedApartments(firebaseAuth.getInstance().getCurrentUser().getUid(),propName.getProperty_name(),propName.getHostcity()));
+                    savedApartments.add(new SavedApartments(firebaseAuth.getInstance().getCurrentUser().getUid(),propName.getProperty_name(),propName.getHostcity(),System.currentTimeMillis()));
                     for (int i = 0; i < savedApartments.size(); i++) {
                         databaseReference.child("SavedApartments/"+firebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(savedApartments.get(i));
                     }
 
                     /*set current user's id to globalvar */
                     propName.setCurrentUser(firebaseAuth.getInstance().getCurrentUser().getUid());
+                    final SavedApartments a = new SavedApartments(); //make a accessing point
+                    //date when xou saved apartment
+                    Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                    cal.setTimeInMillis(System.currentTimeMillis());
+                    String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+
+                    Toast.makeText(getApplicationContext(),"You saved "+propName.getProperty_name(),Toast.LENGTH_LONG).show();
+
                 }
             });
 

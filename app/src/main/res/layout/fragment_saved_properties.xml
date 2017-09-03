@@ -8,6 +8,33 @@
     tools:context="bih.ba.smjestise.smjestise.Fragments.SavedProperties"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/noSavedApartments"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You still didn't save any apartment through our app! Time to do it now!"
+            android:textAlignment="center"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            />
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/clock_calendar"
+            android:scaleType="centerCrop"
+            android:clickable="true"
+            android:id="@+id/goToSearchMain"
+            />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView02"

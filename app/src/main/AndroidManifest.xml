@@ -47,10 +47,14 @@
             android:name=".ReservationActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".FinalActivity01" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".LoginActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".Payment" />
+        <activity android:name=".LeaveReview" />
+        <activity android:name=".ActivityAfterReview"></activity>
     </application>
 
 </manifest>

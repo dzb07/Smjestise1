@@ -1,6 +1,7 @@
 package bih.ba.smjestise.smjestise.Helpers;
 
 import android.app.Application;
+import android.content.Context;
 
 import java.security.Timestamp;
 import java.util.Date;
@@ -13,6 +14,7 @@ public class GlobalVars extends Application {
 
     private int num_of_rooms_var;
     private String property_name;
+    private String property_address;
     private Integer num_of_adults;
     private Integer num_of_children;
     private Date checkin;
@@ -25,6 +27,32 @@ public class GlobalVars extends Application {
     private long days_difference;
     private String hostcity;
     private String currentUser;
+    public String date_of_reservation;
+    public String date_of_saving_apartment;
+
+    public String getDate_of_saving_apartment() {
+        return date_of_saving_apartment;
+    }
+
+    public void setDate_of_saving_apartment(String date_of_saving_apartment) {
+        this.date_of_saving_apartment = date_of_saving_apartment;
+    }
+
+    public String getCurrent_date() {
+        return date_of_reservation;
+    }
+
+    public void setCurrent_date(String current_date) {
+        this.date_of_reservation = current_date;
+    }
+
+    public String getProperty_address() {
+        return property_address;
+    }
+
+    public void setProperty_address(String property_address) {
+        this.property_address = property_address;
+    }
 
     public String getCurrentUser() {
         return currentUser;

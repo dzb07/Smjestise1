@@ -17,32 +17,40 @@
         android:orientation="vertical">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/property_info"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/propertyName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="You don't have any apartments booked!"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/propertyAddress"
-            android:text="Adress"
-            android:layout_below="@+id/propertyName"
-            android:gravity="center"
-            android:layout_marginLeft="22dp"
-            />
+            <TextView
+                android:id="@+id/propertyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You don't have any apartments booked!"
+                android:textAlignment="center"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/propertyAddress"
+                android:text="Adress"
+                android:padding="5dp"
+                android:textAlignment="center"
+                android:layout_below="@+id/propertyName"
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/propertyAddress"
+            android:layout_below="@+id/property_info"
             android:id="@+id/dates_chosen"
             android:layout_marginRight="25dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="25dp"
             >
 
@@ -51,15 +59,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Remove"
-
+                android:background="@drawable/button_transparent_border"
                 android:id="@+id/checkinUSER"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/checkoutUSER"
+                android:background="@drawable/button_transparent_border"
                 android:layout_below="@+id/propertyAddress"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
@@ -69,20 +79,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/cijena"
+            android:id="@+id/reserved_on"
+            android:padding="7dp"
             android:layout_below="@+id/dates_chosen"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/cijena"
+            android:padding="7dp"
+            android:layout_below="@+id/reserved_on"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:id="@+id/cancel_reservation"
             android:text="Cancel Reservation"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:layout_below="@+id/cijena"
-            android:background="#ff0000"/>
+            android:background="@drawable/button_cancel"/>
 
     </RelativeLayout>
 

@@ -28,7 +28,9 @@
                 android:orientation="vertical"
                 android:background="#f2f2f2"
                 android:layout_below="@+id/slider"
-                android:id="@+id/info">
+                android:id="@+id/info"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
                 <TextView
                     android:textSize="20sp"
                     android:id="@+id/property_name"
@@ -66,6 +68,8 @@
                 android:layout_height="150dp"
                 android:layout_below="@+id/info"
                 android:layout_marginBottom="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 tools:context="bih.ba.smjestise.smjestise.ViewHolders.ApartmentDetails"
                 />
             <LinearLayout
@@ -82,6 +86,8 @@
                 android:textSize="20sp"
                 android:textColor="#00000a"
                 android:layout_marginBottom="4dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/button_selector2"/>
             </LinearLayout>
             <LinearLayout
@@ -90,6 +96,8 @@
                 android:orientation="vertical"
                 android:layout_marginTop="3dp"
                 android:id="@+id/perks_list"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/button_selector2"
                 android:layout_below="@+id/perks_linear">
                 <LinearLayout
@@ -125,6 +133,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingBottom="7dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/perks_breakfast"
 
                     >
@@ -153,6 +163,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingBottom="7dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/perks_pets">
 
                     <TextView
@@ -175,9 +187,11 @@
                         android:text="Pets are allowed. No extra charges."/>
                 </LinearLayout>
                     <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="7dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                     android:id="@+id/perks_parking">
 
                         <TextView
@@ -205,6 +219,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingBottom="7dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/perks_kitchen"
                         >
 
@@ -233,6 +249,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingBottom="7dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/perks_bathroom"
                         >
 
@@ -262,8 +280,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/ap_desc_all"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/button_selector2"
-                android:layout_below="@+id/perks_list">
+                android:layout_below="@+id/perks_list"
+                android:layout_alignParentStart="true">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -283,31 +304,56 @@
                     android:text="Read more"
                     android:id="@+id/read_more"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ap_desc_all"
+                android:id="@+id/comments"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Leave a review"
+                    android:id="@+id/writeComment"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/ap_desc_all"
+                android:layout_below="@+id/comments"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp">
-                <Button
-                    android:layout_width="0dp"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/reserve"
-                    android:text="Reserve"
-                    android:drawablePadding="2dp"
-                    android:background="@drawable/button_reserve"
-                    android:drawableRight="@drawable/calendar"/>
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/save"
-                    android:drawableRight="@drawable/ic_favourite"
-                    android:background="@drawable/button_save"
-                    android:drawablePadding="2dp"
-                    android:text="Save"/>
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    >
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/reserve"
+                        android:text="Reserve"
+                        android:drawablePadding="2dp"
+                        android:background="@drawable/button_transparent_border"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:layout_marginRight="14dp"/>
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/save"
+                        android:drawableRight="@drawable/ic_favourite"
+                        android:background="@drawable/button_transparent_border"
+                        android:drawablePadding="2dp"
+                        android:text="Save"/>
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
 

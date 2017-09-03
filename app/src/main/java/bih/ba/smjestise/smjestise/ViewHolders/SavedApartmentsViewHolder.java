@@ -1,13 +1,14 @@
 package bih.ba.smjestise.smjestise.ViewHolders;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import java.util.Calendar;
+import java.util.Locale;
 
-import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 import bih.ba.smjestise.smjestise.Helpers.SavedApartments;
 import bih.ba.smjestise.smjestise.R;
@@ -22,6 +23,7 @@ public class SavedApartmentsViewHolder extends RecyclerView.ViewHolder {
     private TextView mAdName01;
     private TextView mPrice;
     private TextView mAddress01;
+    private TextView date_when_saved;
     GlobalVars var1 = new GlobalVars();
 
     public SavedApartmentsViewHolder(View itemView) {
@@ -29,12 +31,20 @@ public class SavedApartmentsViewHolder extends RecyclerView.ViewHolder {
        // mAdImage = (ImageView) itemView.findViewById(R.id.ad_image);
         mAdName01 = (TextView) itemView.findViewById(R.id.ad_name01);
         mAddress01 = (TextView) itemView.findViewById(R.id.ad_address01);
+        date_when_saved=(TextView)itemView.findViewById(R.id.date_when_saved);
 
     }
 
     public void bindAd(SavedApartments ad) {
         mAdName01.setText(ad.getProp_name());
         mAddress01.setText(ad.getHost_city());
+
+        //get date
+
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(ad.getSaved_on());
+        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        date_when_saved.setText("Saved on: "+date);
     }
 
 }
