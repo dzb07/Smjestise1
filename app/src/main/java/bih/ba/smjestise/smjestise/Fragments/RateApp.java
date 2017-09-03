@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -18,8 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import bih.ba.smjestise.smjestise.Helpers.RateApplicationAdapter;
-import bih.ba.smjestise.smjestise.Helpers.ReservationClass;
+import bih.ba.smjestise.smjestise.Helpers.RateApplication;
 import bih.ba.smjestise.smjestise.R;
 
 import static android.widget.Toast.LENGTH_LONG;
@@ -87,7 +85,7 @@ public class RateApp extends Fragment {
         openCommentSection=(Button) rootView.findViewById(R.id.openComment);
         final RatingBar mBar = (RatingBar) rootView.findViewById(R.id.ratingBar);
 
-        final ArrayList<RateApplicationAdapter> rateObject = new ArrayList<>();
+        final ArrayList<RateApplication> rateObject = new ArrayList<>();
         commentofUser=(EditText)rootView.findViewById(R.id.userComment);
 
         openCommentSection.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +112,7 @@ public class RateApp extends Fragment {
                 String komentar=commentofUser.getText().toString();
                 Toast toast = Toast.makeText(getActivity(), "Your rate is "+rate,LENGTH_LONG);
                 toast.show();
-                rateObject.add(new RateApplicationAdapter(rate,komentar));
+                rateObject.add(new RateApplication(rate,komentar));
 
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

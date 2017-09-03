@@ -304,19 +304,58 @@
                     android:text="Read more"
                     android:id="@+id/read_more"/>
             </LinearLayout>
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/commentsTOTAL"
                 android:layout_below="@+id/ap_desc_all"
-                android:id="@+id/comments"
+
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/comments"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="See comments"
+                        android:id="@+id/seeComments"
+                        android:drawableRight="@drawable/ic_star"
+                        android:background="@drawable/button_transparent_border"
+                        />
+
+                </LinearLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView04"
+                        android:paddingTop="10dp"
+                        android:layout_below="@+id/comments"
+                        android:clipToPadding="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/commentsTOTAL"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/layoutReservedForButtonWriteComment"
                 android:orientation="vertical">
 
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Leave a review"
                     android:id="@+id/writeComment"
+                    android:drawableRight="@drawable/ic_star"
+                    android:background="@drawable/button_transparent_border"
                     android:visibility="gone"/>
 
             </LinearLayout>
@@ -324,7 +363,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/comments"
+                android:layout_below="@+id/layoutReservedForButtonWriteComment"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp">
 

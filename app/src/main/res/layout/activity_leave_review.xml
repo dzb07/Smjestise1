@@ -37,6 +37,46 @@
             android:text="\ncomfort\nposition\nfeatures\nvalue for money \n"
             android:textStyle="italic"/>
 
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/username"
+                android:layout_weight="1"
+                android:text="Username:"/>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:id="@+id/username"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Comment:"
+                android:labelFor="@+id/commentOnProperty"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="3"
+            android:inputType="text|textMultiLine"
+            android:id="@+id/commentOnProperty"
+            android:hint="..."
+            />
+        </LinearLayout>
+
         <RatingBar
             android:id="@+id/ratingOfProperty"
             android:numStars="5"
@@ -44,13 +84,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:theme="@style/CustomRatingBar"/>
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:inputType="text|textMultiLine"
-            android:id="@+id/commentOnProperty"
-            android:hint="Comment..."
-            />
 
         <Button
             android:layout_width="210dp"

@@ -15,8 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
-import bih.ba.smjestise.smjestise.Helpers.RateApplicationAdapter;
-import bih.ba.smjestise.smjestise.Helpers.RatePropertyAdapter;
+import bih.ba.smjestise.smjestise.Helpers.Comments;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -24,15 +23,16 @@ public class LeaveReview extends AppCompatActivity {
 
     private RatingBar ratingOfProperty;
     private EditText commentOnProperty;
+    private EditText username;
     private Button submitReview;
-    final ArrayList<RatePropertyAdapter> rateObject = new ArrayList<>();
+    final ArrayList<Comments> rateObject = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_review);
 
-
+        username=(EditText)findViewById(R.id.username);
         ratingOfProperty=(RatingBar)findViewById(R.id.ratingOfProperty);
         commentOnProperty=(EditText)findViewById(R.id.commentOnProperty);
         submitReview=(Button) findViewById(R.id.submitReview);
@@ -43,9 +43,10 @@ public class LeaveReview extends AppCompatActivity {
             public void onClick(View view) {
                 float rate=ratingOfProperty.getRating();
                 String komentar=commentOnProperty.getText().toString();
+                String nameOfUser=username.getText().toString();
                 Toast toast = Toast.makeText(LeaveReview.this, "Your rate is "+rate,LENGTH_LONG);
                 toast.show();
-                rateObject.add(new RatePropertyAdapter(komentar,rate));
+                rateObject.add(new Comments(nameOfUser,komentar,rate));
 
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

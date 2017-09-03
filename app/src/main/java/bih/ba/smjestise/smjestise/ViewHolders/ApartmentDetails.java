@@ -3,12 +3,13 @@ package bih.ba.smjestise.smjestise.ViewHolders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,19 +32,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import android.support.v4.app.FragmentActivity;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-import bih.ba.smjestise.smjestise.Fragments.SavedProperties;
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
+import bih.ba.smjestise.smjestise.Helpers.CommentsAdapter;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
+import bih.ba.smjestise.smjestise.Helpers.Comments;
 import bih.ba.smjestise.smjestise.Helpers.ReservationClass;
 import bih.ba.smjestise.smjestise.Helpers.SavedApartments;
+import bih.ba.smjestise.smjestise.Helpers.UserReservationsAdapter;
 import bih.ba.smjestise.smjestise.LeaveReview;
 import bih.ba.smjestise.smjestise.R;
 import bih.ba.smjestise.smjestise.ReservationActivity;
@@ -64,7 +64,14 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
     private TextView ap_desc;
     private Button saveButton;
     private Button leaveReview;
+    private Button seeComments;
+    private LinearLayout seeAllComments;
+    final ArrayList<Comments> ads = new ArrayList<Comments>();
 
+    /*for displaying comments*/
+    StaggeredGridLayoutManager mStaggeredLayoutManager;
+    RecyclerView mRecyclerView;
+    CommentsAdapter mAdAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +95,55 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
         reserveButton=(Button) findViewById(R.id.reserve);
         ap_desc.setMaxLines(3);
         userID= firebaseAuth.getInstance().getCurrentUser().getUid();
+       // seeAllComments=(LinearLayout)findViewById(R.id.seeAllComments);
+        seeComments=(Button)findViewById(R.id.seeComments);
 
+        seeComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference().child("PropertyRatings")
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.hasChild(globalVariable.getProperty_name())) {
+                                    Iterable<DataSnapshot> children = dataSnapshot.child(globalVariable.getProperty_name()).getChildren();
+                                    for (DataSnapshot child : children) {
+
+                                        Comments r = child.getValue(Comments.class);
+                                        //globalVariable_num_of_rooms.getNumOfRoomsVar()
+
+
+                                        ads.add(r);
+                                        mAdAdapter.notifyDataSetChanged();
+                                        //seeAllComments.setVisibility(View.VISIBLE);
+
+
+                                    }
+                                }
+                                else{
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+                mAdAdapter = new CommentsAdapter(ads);
+
+
+                mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView04);
+                mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+                mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+
+                mRecyclerView.setAdapter(mAdAdapter);
+
+
+            }
+        });
 
         /*open comment section*/
         leaveReview=(Button) findViewById(R.id.writeComment);
@@ -129,7 +184,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                 startActivity(i);
 
             }
-            
+
         });
 
         final ArrayList<SavedApartments> savedApartments = new ArrayList<>();
