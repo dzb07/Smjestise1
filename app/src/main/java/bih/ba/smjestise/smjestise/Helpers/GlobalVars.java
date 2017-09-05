@@ -29,6 +29,15 @@ public class GlobalVars extends Application {
     private String currentUser;
     public String date_of_reservation;
     public String date_of_saving_apartment;
+    private String cancellationFromDatabase;
+
+    public String getCancellationFromDatabase() {
+        return cancellationFromDatabase;
+    }
+
+    public void setCancellationFromDatabase(String cancellationFromDatabase) {
+        this.cancellationFromDatabase = cancellationFromDatabase;
+    }
 
     public String getDate_of_saving_apartment() {
         return date_of_saving_apartment;

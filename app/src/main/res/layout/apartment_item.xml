@@ -28,39 +28,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/ad_image"
-            android:gravity="center"
+            android:textAlignment="center"
             android:padding="10dp"
             android:textSize="15sp"
             android:textStyle="bold" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ad_address"
             android:layout_below="@+id/ad_name"
             android:layout_toRightOf="@+id/ad_image"
-            android:gravity="center"
-            android:layout_marginLeft="22dp"
+            android:textAlignment="center"
+
             />
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ad_price_whole"
             android:orientation="horizontal"
             android:layout_marginTop="40dp"
+            android:gravity="center"
             android:layout_toRightOf="@+id/ad_image"
             android:layout_below="@+id/ad_address"
+
             >
             <TextView
                 android:id="@+id/ad_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dp"
-                android:textSize="12sp"
+                android:padding="4dp"
                 android:textStyle="bold"
                 />
             <TextView
-                android:id="@+id/currency"
+                android:id="@+id/currency_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BAM per night" />
@@ -74,7 +74,7 @@
             android:id="@+id/cancellation"
             android:text="Free cancellation"
             android:padding="2dp"
-            android:background="#4ce600"
+            android:background="#33cc33"
             android:layout_below="@id/ad_price_whole"
             android:layout_alignParentRight="true"
             android:layout_marginRight="2dp"

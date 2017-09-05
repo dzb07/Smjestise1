@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,8 +65,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
     private TextView ap_desc;
     private Button saveButton;
     private Button leaveReview;
-    private Button seeComments;
-    private LinearLayout seeAllComments;
+
     final ArrayList<Comments> ads = new ArrayList<Comments>();
 
     /*for displaying comments*/
@@ -84,23 +84,21 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
         final TextView property_name = (TextView) findViewById(R.id.property_name);
         TextView property_city = (TextView) findViewById(R.id.property_city);
         TextView property_address = (TextView) findViewById(R.id.property_address);
-        LinearLayout perks_wifi= (LinearLayout)findViewById(R.id.perks_wifi);
-        LinearLayout perks_pets= (LinearLayout)findViewById(R.id.perks_pets);
-        LinearLayout perks_parking= (LinearLayout)findViewById(R.id.perks_parking);
-        LinearLayout perks_breakfast= (LinearLayout)findViewById(R.id.perks_breakfast);
-        LinearLayout perks_kitchen= (LinearLayout)findViewById(R.id.perks_kitchen);
-        LinearLayout perks_bathroom= (LinearLayout)findViewById(R.id.perks_bathroom);
+        ImageView perks_wifi= (ImageView)findViewById(R.id.perks_wifi);
+        ImageView perks_pets= (ImageView)findViewById(R.id.perks_pets);
+        ImageView perks_parking= (ImageView)findViewById(R.id.perks_parking);
+        ImageView perks_breakfast= (ImageView)findViewById(R.id.perks_breakfast);
+        ImageView perks_kitchen= (ImageView)findViewById(R.id.perks_kitchen);
+        ImageView perks_bathroom= (ImageView)findViewById(R.id.perks_child_friendly);
         saveButton=(Button) findViewById(R.id.save);
         ap_desc=(TextView) findViewById(R.id.ap_desc);
         reserveButton=(Button) findViewById(R.id.reserve);
         ap_desc.setMaxLines(3);
         userID= firebaseAuth.getInstance().getCurrentUser().getUid();
        // seeAllComments=(LinearLayout)findViewById(R.id.seeAllComments);
-        seeComments=(Button)findViewById(R.id.seeComments);
 
-        seeComments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        /*RETRIEVE comments from database*/
+
                 FirebaseDatabase.getInstance().getReference().child("PropertyRatings")
                         .addValueEventListener(new ValueEventListener() {
                             @Override
@@ -115,7 +113,6 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
 
                                         ads.add(r);
                                         mAdAdapter.notifyDataSetChanged();
-                                        //seeAllComments.setVisibility(View.VISIBLE);
 
 
                                     }
@@ -142,8 +139,8 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                 mRecyclerView.setAdapter(mAdAdapter);
 
 
-            }
-        });
+        /*end of retrieving comments from database*/
+
 
         /*open comment section*/
         leaveReview=(Button) findViewById(R.id.writeComment);
@@ -269,7 +266,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                         intent.putExtra("price",ad.getPrice_eur());
                     else
                         intent.putExtra("price",ad.getPrice());
-
+                    intent.putExtra("cancellation", ad.getCancellation());
                     startActivity(intent);
                 }
             });

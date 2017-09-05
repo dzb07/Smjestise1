@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -22,8 +23,8 @@ public class Payment extends AppCompatActivity {
     String m_payPalclientId="AaSwJ4Vmy8eKR00FKC1SS712kpKOMxX6tPenRfYCWGs9VKFmkGBQsQuSPgyNaeGXxDdbm6Ajkhs-pigS"; //id is link to paypal account
     Intent m_service;
     int m_paypalRequestCode=999;
-
-
+    Integer price_to_pay;
+    private String currency;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +35,19 @@ public class Payment extends AppCompatActivity {
                 .clientId(m_payPalclientId);
 
 
+        /*get price to pay*/
+        Bundle bundle = getIntent().getExtras();
+        price_to_pay=bundle.getInt("price_to_pay");
+        currency=bundle.getString("getCurrency");
+
+        Toast.makeText(Payment.this, price_to_pay.toString()+currency,Toast.LENGTH_LONG).show();
         m_service=new Intent(this, PayPalService.class);
         m_service.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,m_configuration); //configuration above
         startService(m_service); //paypal service, listening to call of paypal app
     }
 
     public void pay(View view){
-        PayPalPayment payment=new PayPalPayment(new BigDecimal(10), "EUR", "Test paypal",
+        PayPalPayment payment=new PayPalPayment(new BigDecimal(price_to_pay), currency, "Test paypal",
                 PayPalPayment.PAYMENT_INTENT_AUTHORIZE);
 
         Intent intent=new Intent(this, PaymentActivity.class);

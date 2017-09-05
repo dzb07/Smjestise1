@@ -35,6 +35,7 @@ public  class ApartmentAdapter extends RecyclerView.Adapter<ApartmentViewHolder>
 
     public void onBindViewHolder(ApartmentViewHolder holder, int position) {
         final Apartments apartments = mImages.get(position);
+
         holder.bindAd(apartments);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +43,8 @@ public  class ApartmentAdapter extends RecyclerView.Adapter<ApartmentViewHolder>
 
                 Intent intent = new Intent(view.getContext(), ApartmentDetails.class);
                 intent.putExtra("ad",apartments);
+                //intent.putExtra("cancellation",apartments);
+
 
                 view.getContext().startActivity(intent);
             }

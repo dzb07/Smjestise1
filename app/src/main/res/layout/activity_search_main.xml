@@ -188,8 +188,8 @@
                    <RadioButton
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="KM"
-                       android:id="@+id/KM"
+                       android:text="USD"
+                       android:id="@+id/USD"
                        />
                    <RadioButton
                        android:layout_width="wrap_content"

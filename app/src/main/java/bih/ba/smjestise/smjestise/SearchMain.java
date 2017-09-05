@@ -93,7 +93,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
 
         /*accessing radio bbuttons for currency*/
-        KM=(RadioButton)findViewById(R.id.KM);
+        KM=(RadioButton)findViewById(R.id.USD);
         EUR=(RadioButton)findViewById(R.id.EUR);
 
         /*load currency json file*/
@@ -178,9 +178,12 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(SearchMain.this, date, myCalendar
+
+              DatePickerDialog datePickerDialog=  new DatePickerDialog(SearchMain.this, date , myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
 
             }
         });
@@ -202,9 +205,13 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(SearchMain.this, date2, myCalendar
+
+
+                DatePickerDialog datePickerDialog=  new DatePickerDialog(SearchMain.this, date2, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
             }
         });
 
@@ -266,7 +273,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
                     currency.setCurrency("EUR");
                 }
                 else{
-                    currency.setCurrency("KM");
+                    currency.setCurrency("USD");
 
                 }
 

@@ -13,12 +13,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/apartman_za_rez"
                 android:textSize="22sp"
                 android:textStyle="bold"
+                android:textAlignment="center"
                 android:background="@drawable/button_selector2"
                 android:layout_marginTop="5dp"
                 android:text=""/>
@@ -27,6 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/checkinout"
                 android:layout_below="@+id/apartman_za_rez">
 
@@ -51,18 +54,20 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/checkinout"
                 android:orientation="vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/intro_to_res">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="7dp"
                     android:text="DETAILS:"
                     android:textSize="18dp"
                     android:textStyle="bold"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="7dp"
                     android:id="@+id/det"
                     android:text=""
                     android:textSize="14dp"/>
@@ -91,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:hint="First name"
                     android:id="@+id/f_name"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="6dp"
                     />
 
                 <EditText
@@ -99,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Last name"
                     android:id="@+id/l_name"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="6dp"
 
                     />
                 <EditText
@@ -108,7 +113,7 @@
                     android:hint="Email adress"
                     android:id="@+id/email_add"
                     android:inputType="textEmailAddress"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="6dp"
 
                     />
                 <EditText
@@ -116,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Address"
                     android:id="@+id/user1_address"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="6dp"
 
                     />
                 <EditText
@@ -124,17 +129,17 @@
                     android:layout_height="wrap_content"
                     android:hint="City"
                     android:id="@+id/user1_city"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="6dp"
 
                     />
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Last name"
+                    android:hint="Mobile Phone"
                     android:inputType="phone"
                     android:digits="0123456789+"
                     android:id="@+id/user1_mob_phone"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="6dp"
 
                     />
 

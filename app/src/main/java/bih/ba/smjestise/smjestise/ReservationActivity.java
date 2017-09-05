@@ -38,7 +38,7 @@ public class ReservationActivity extends AppCompatActivity {
     private EditText userPhoneNumber;
     private FirebaseAuth firebaseAuth1;
     private String userID;
-
+    private String cancellation;
 
 
     @Override
@@ -72,6 +72,7 @@ public class ReservationActivity extends AppCompatActivity {
         /*getting total amount needed to be payed*/
         Bundle bundle = getIntent().getExtras();
         price_per_night=bundle.getInt("price");
+        cancellation=bundle.getString("cancellation");
         int num_of_days=(int) dayDiff.getDays_difference();
         price_to_pay=price_per_night*num_of_days;
         /*end of getting total amount needed to be payed*/
@@ -82,10 +83,11 @@ public class ReservationActivity extends AppCompatActivity {
         intro=(TextView)findViewById(R.id.det);
         if(dayDiff.getDays_difference()>1) {
             intro.setText("You chose to stay " + dayDiff.getDays_difference() + " nights." +
-                    " Please fill in details below in order to finish reservation");
+                    " Please fill in details below in order to finish reservation.\n *All fields are required!");
         }
         else{
-            intro.setText("You chose to stay " + dayDiff.getDays_difference() + " night. Please fill in details below in order to finish reservation.");
+            intro.setText("You chose to stay " + dayDiff.getDays_difference() + " night. Please fill in details below in order to finish reservation." +
+                    "\n *All fields are required!");
 
         }
 
@@ -146,8 +148,17 @@ public class ReservationActivity extends AppCompatActivity {
                 emailadd.setEmail(emailAddress_value);
 
 
-                Intent intentFinal=new Intent(ReservationActivity.this,Payment.class);
-                startActivity(intentFinal);
+                if(cancellation.equals("free")){
+                    Intent intentFinal = new Intent(ReservationActivity.this, FinalActivity01.class);
+                    startActivity(intentFinal);
+                }
+                else {
+
+                    Intent intentPayement=new Intent(ReservationActivity.this,Payment.class);
+                    intentPayement.putExtra("price_to_pay",price_to_pay);
+                    intentPayement.putExtra("getCurrency",currency.getCurrency());
+                    startActivity(intentPayement);
+                }
             }
 
         });

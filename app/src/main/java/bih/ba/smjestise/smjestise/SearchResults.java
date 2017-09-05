@@ -33,14 +33,10 @@ public class SearchResults extends AppCompatActivity {
     ApartmentAdapter mAdAdapter;
     String host_city;
     String curreny;
-    int controller;
-    private int result;
     TextView searched_city;
     TextView selected_num_of_persons;
     TextView number_of_nigths;
     TextView number_of_children01;
-    private int suma;
-    public int counter1;
     final ArrayList<ReservationClass> res = new ArrayList<ReservationClass>();
 
     public static SearchResults getInstance() {
