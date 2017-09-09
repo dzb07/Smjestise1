@@ -15,7 +15,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pay 10dolars"
+        android:text="Pay"
         android:layout_marginTop="30dp"
         android:id="@+id/paymentButton"
         android:background="@drawable/button_transparent_border"
@@ -28,6 +28,7 @@
         android:textStyle="bold"
         android:id="@+id/response"
         android:textSize="18sp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +26,8 @@ public class LeaveReview extends AppCompatActivity {
     private EditText commentOnProperty;
     private EditText username;
     private Button submitReview;
+    private FirebaseAuth firebaseAuth1;
+
     final ArrayList<Comments> rateObject = new ArrayList<>();
 
     @Override
@@ -46,7 +49,7 @@ public class LeaveReview extends AppCompatActivity {
                 String nameOfUser=username.getText().toString();
                 Toast toast = Toast.makeText(LeaveReview.this, "Your rate is "+rate,LENGTH_LONG);
                 toast.show();
-                rateObject.add(new Comments(nameOfUser,komentar,rate));
+                rateObject.add(new Comments(nameOfUser,komentar,rate,firebaseAuth1.getInstance().getCurrentUser().getUid()));
 
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

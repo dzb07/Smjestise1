@@ -47,7 +47,7 @@ public class Payment extends AppCompatActivity {
     }
 
     public void pay(View view){
-        PayPalPayment payment=new PayPalPayment(new BigDecimal(price_to_pay), currency, "Test paypal",
+        PayPalPayment payment=new PayPalPayment(new BigDecimal(price_to_pay), currency, "Payment:",
                 PayPalPayment.PAYMENT_INTENT_AUTHORIZE);
 
         Intent intent=new Intent(this, PaymentActivity.class);
@@ -68,9 +68,12 @@ public class Payment extends AppCompatActivity {
                 if(confirm!=null && confirm.getProofOfPayment().getState().equals("approved")){
                     //if payment worked
                     m_response.setText("Payment approved");
+                    m_response.setVisibility(View.VISIBLE);
                 }
                 else{
                     m_response.setText("Payment not approved");
+                    m_response.setVisibility(View.VISIBLE);
+
 
                 }
             }

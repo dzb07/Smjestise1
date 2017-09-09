@@ -148,7 +148,7 @@ public class ReservationActivity extends AppCompatActivity {
                 emailadd.setEmail(emailAddress_value);
 
 
-                if(cancellation.equals("free")){
+                if(cancellation.equals("yes")){
                     Intent intentFinal = new Intent(ReservationActivity.this, FinalActivity01.class);
                     startActivity(intentFinal);
                 }

@@ -38,7 +38,7 @@ public class ApartmentViewHolder extends RecyclerView.ViewHolder {
         mAdName.setText(ad.prop_name);
         mAddress.setText(ad.host_street);
         //check if cancellation is free, if so, then show it in recycler view
-        if(ad.cancellation.equals("free")){
+        if(ad.cancellation.equals("yes")){
             cancellation.setVisibility(View.VISIBLE);
         }
         else{

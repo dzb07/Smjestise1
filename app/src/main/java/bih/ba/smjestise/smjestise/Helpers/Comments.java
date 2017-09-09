@@ -8,8 +8,25 @@ public class Comments {
     private String username;
     private String commentProperty;
     private float rateProperty;
+    private String userID;
 
     public Comments() {
+    }
+
+    public Comments(String username, String commentProperty, float rateProperty, String userID) {
+
+        this.username = username;
+        this.commentProperty = commentProperty;
+        this.rateProperty = rateProperty;
+        this.userID = userID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public Comments(String username, String commentProperty, float rateProperty) {

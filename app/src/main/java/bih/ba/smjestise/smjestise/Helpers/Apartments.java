@@ -15,7 +15,7 @@ public class Apartments implements Serializable {
     public String lat;
     public String longitude;
     public Integer num_of_rooms;
-    public String max_num_of_people;
+    public Integer max_num_of_people;
     public String type_of_beds;
     public String arr_time;
     public String bathroom;
@@ -24,6 +24,8 @@ public class Apartments implements Serializable {
     public String parking;
     public String pets;
     public String wifi;
+    public String child_friendly;
+    public String smoking_allowed;
     public String app_code;
     public String urlImage1;
     public String urlImage2;
@@ -37,6 +39,74 @@ public class Apartments implements Serializable {
     public String urlImage10;
     public String ap_desc;
     public String cancellation;
+
+
+    public Apartments(String prop_name, Integer price_eur, String host_city, String host_street, Integer price, String lat, String longitude, Integer num_of_rooms, Integer max_num_of_people, String type_of_beds, String arr_time, String bathroom, String kitchen, String breakfast, String parking, String pets, String wifi, String child_friendly, String smoking_allowed, String app_code, String urlImage1, String urlImage2, String urlImage3, String urlImage4, String urlImage5, String urlImage6, String urlImage7, String urlImage8, String urlImage9, String urlImage10, String ap_desc, String cancellation) {
+        this.prop_name = prop_name;
+        this.price_eur = price_eur;
+        this.host_city = host_city;
+        this.host_street = host_street;
+        this.price = price;
+        this.lat = lat;
+        this.longitude = longitude;
+        this.num_of_rooms = num_of_rooms;
+        this.max_num_of_people = max_num_of_people;
+        this.type_of_beds = type_of_beds;
+        this.arr_time = arr_time;
+        this.bathroom = bathroom;
+        this.kitchen = kitchen;
+        this.breakfast = breakfast;
+        this.parking = parking;
+        this.pets = pets;
+        this.wifi = wifi;
+        this.child_friendly = child_friendly;
+        this.smoking_allowed = smoking_allowed;
+        this.app_code = app_code;
+        this.urlImage1 = urlImage1;
+        this.urlImage2 = urlImage2;
+        this.urlImage3 = urlImage3;
+        this.urlImage4 = urlImage4;
+        this.urlImage5 = urlImage5;
+        this.urlImage6 = urlImage6;
+        this.urlImage7 = urlImage7;
+        this.urlImage8 = urlImage8;
+        this.urlImage9 = urlImage9;
+        this.urlImage10 = urlImage10;
+        this.ap_desc = ap_desc;
+        this.cancellation = cancellation;
+    }
+
+    public Integer getMax_num_of_people() {
+        return max_num_of_people;
+    }
+
+    public void setMax_num_of_people(Integer max_num_of_people) {
+        this.max_num_of_people = max_num_of_people;
+    }
+
+    public String getHost_street() {
+        return host_street;
+    }
+
+    public void setHost_street(String host_street) {
+        this.host_street = host_street;
+    }
+
+    public String getChild_friendly() {
+        return child_friendly;
+    }
+
+    public void setChild_friendly(String child_friendly) {
+        this.child_friendly = child_friendly;
+    }
+
+    public String getSmoking_allowed() {
+        return smoking_allowed;
+    }
+
+    public void setSmoking_allowed(String smoking_allowed) {
+        this.smoking_allowed = smoking_allowed;
+    }
 
     public String getCancellation() {
         return cancellation;
@@ -93,38 +163,7 @@ public Apartments(String lat){
         this.longitude = longitude;
     }
 
-    public Apartments(String prop_name, Integer price_eur, String host_city, String host_street, Integer price, String lat, String longitude, Integer num_of_rooms, String max_num_of_people, String type_of_beds, String arr_time, String bathroom, String kitchen, String breakfast, String parking, String pets, String wifi, String app_code, String urlImage1, String urlImage2, String urlImage3, String urlImage4, String urlImage5, String urlImage6, String urlImage7, String urlImage8, String urlImage9, String urlImage10, String ap_desc, String cancellation) {
-        this.prop_name = prop_name;
-        this.price_eur = price_eur;
-        this.host_city = host_city;
-        this.host_street = host_street;
-        this.price = price;
-        this.lat = lat;
-        this.longitude = longitude;
-        this.num_of_rooms = num_of_rooms;
-        this.max_num_of_people = max_num_of_people;
-        this.type_of_beds = type_of_beds;
-        this.arr_time = arr_time;
-        this.bathroom = bathroom;
-        this.kitchen = kitchen;
-        this.breakfast = breakfast;
-        this.parking = parking;
-        this.pets = pets;
-        this.wifi = wifi;
-        this.app_code = app_code;
-        this.urlImage1 = urlImage1;
-        this.urlImage2 = urlImage2;
-        this.urlImage3 = urlImage3;
-        this.urlImage4 = urlImage4;
-        this.urlImage5 = urlImage5;
-        this.urlImage6 = urlImage6;
-        this.urlImage7 = urlImage7;
-        this.urlImage8 = urlImage8;
-        this.urlImage9 = urlImage9;
-        this.urlImage10 = urlImage10;
-        this.ap_desc = ap_desc;
-        this.cancellation = cancellation;
-    }
+
 
     public Apartments() {
     }

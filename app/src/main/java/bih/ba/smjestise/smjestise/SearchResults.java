@@ -96,7 +96,7 @@ public class SearchResults extends AppCompatActivity {
 
                    final Apartments r = child.getValue(Apartments.class);
                     //globalVariable_num_of_rooms.getNumOfRoomsVar()
-                    if (roomsNO.getNumOfRoomsVar() <= r.getNum_of_rooms()) {
+                    if (roomsNO.getNumOfRoomsVar() <= r.getNum_of_rooms() && (roomsNO.getNum_of_children()+roomsNO.getNum_of_adults())<=r.getMax_num_of_people()) {
                         final Date datecheckedIN_user = new Date(roomsNO.getT1());
                         final Date datecheckedOUT_user = new Date(roomsNO.getT2());
 

@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //stopping the function of exectuing further
             return;
         }
-        progressDialog.setMessage("Registering user...");
+        progressDialog.setMessage("Log in...");
         progressDialog.show();
 
 

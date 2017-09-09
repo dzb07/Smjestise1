@@ -44,13 +44,15 @@ public class MainActivity extends AppCompatActivity
         RateApp.OnFragmentInteractionListener,
         SavedProperties.OnFragmentInteractionListener{
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
+        firebaseAuth=FirebaseAuth.getInstance();
 
 
         FragmentManager fragmentManager=getSupportFragmentManager();
@@ -145,6 +147,12 @@ public class MainActivity extends AppCompatActivity
             SavedProperties savedFragment = new SavedProperties();
             fragmentTransaction.replace(R.id.fragment_container, savedFragment);
             fragmentTransaction.commit();
+        }
+
+        else if (id == R.id.nav_logOut) {
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
         }
 
 

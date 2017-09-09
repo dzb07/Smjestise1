@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -49,7 +48,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
     private static final String TAG = "Hotels";
     private Button buttoncheckIn;
     private Button buttoncheckOut;
-    private CheckBox checkBox;
+
     public String destinationcity;
     private String val_checkin;
     private String val_checkout;
@@ -139,26 +138,6 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
         ((GlobalVars) this.getApplication()).setCheckOUT(val_checkout);
 
 
-
-        checkBox= (CheckBox) findViewById(R.id.checkbox_dates);
-        if (checkBox == null) { Log.w("", "TextView is null"); }
-        context=getApplicationContext();
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if ( isChecked ) {
-                    buttoncheckIn.setVisibility(View.GONE);
-                    buttoncheckOut.setVisibility(View.GONE);
-                }
-
-                else{
-                    buttoncheckIn.setVisibility(View.VISIBLE);
-                    buttoncheckOut.setVisibility(View.VISIBLE);
-                }
-
-            }
-        });
 
          date = new DatePickerDialog.OnDateSetListener() {
 

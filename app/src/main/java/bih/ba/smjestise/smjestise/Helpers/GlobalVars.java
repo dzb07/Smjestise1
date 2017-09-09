@@ -30,7 +30,6 @@ public class GlobalVars extends Application {
     public String date_of_reservation;
     public String date_of_saving_apartment;
     private String cancellationFromDatabase;
-
     public String getCancellationFromDatabase() {
         return cancellationFromDatabase;
     }

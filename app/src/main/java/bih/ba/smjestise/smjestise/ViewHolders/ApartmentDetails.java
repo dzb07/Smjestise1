@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.vision.text.Line;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,7 +66,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
     private TextView ap_desc;
     private Button saveButton;
     private Button leaveReview;
-
+    private LinearLayout commentsTOTAL;
     final ArrayList<Comments> ads = new ArrayList<Comments>();
 
     /*for displaying comments*/
@@ -90,9 +91,13 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
         ImageView perks_breakfast= (ImageView)findViewById(R.id.perks_breakfast);
         ImageView perks_kitchen= (ImageView)findViewById(R.id.perks_kitchen);
         ImageView perks_bathroom= (ImageView)findViewById(R.id.perks_child_friendly);
+        ImageView perks_child_friendly=(ImageView)findViewById(R.id.perks_child_friendly);
+        ImageView perks_smoking=(ImageView)findViewById(R.id.perks_smoking);
+        commentsTOTAL=(LinearLayout) findViewById(R.id.commentsTOTAL);
         saveButton=(Button) findViewById(R.id.save);
         ap_desc=(TextView) findViewById(R.id.ap_desc);
         reserveButton=(Button) findViewById(R.id.reserve);
+        leaveReview=(Button) findViewById(R.id.writeComment);
         ap_desc.setMaxLines(3);
         userID= firebaseAuth.getInstance().getCurrentUser().getUid();
        // seeAllComments=(LinearLayout)findViewById(R.id.seeAllComments);
@@ -105,6 +110,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.hasChild(globalVariable.getProperty_name())) {
                                     Iterable<DataSnapshot> children = dataSnapshot.child(globalVariable.getProperty_name()).getChildren();
+
                                     for (DataSnapshot child : children) {
 
                                         Comments r = child.getValue(Comments.class);
@@ -118,7 +124,9 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                                     }
                                 }
                                 else{
+                                    commentsTOTAL.setVisibility(View.GONE);
                                 }
+
                             }
 
 
@@ -143,7 +151,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
 
 
         /*open comment section*/
-        leaveReview=(Button) findViewById(R.id.writeComment);
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = database.getReference();
@@ -154,7 +162,9 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                     Iterable<DataSnapshot> children = dataSnapshot.child(globalVariable.getProperty_name()).getChildren();
                     for (DataSnapshot child : children) {
                         ReservationClass reserved = child.getValue(ReservationClass.class);
-                        if (reserved.getUserID().equals(userID)) {
+                        Comments r = child.getValue(Comments.class);
+
+                        if (reserved.getUserID().equals(userID)&& !r.getUserID().equals(userID)) {
                             leaveReview.setVisibility(View.VISIBLE);
                         }
                     }
@@ -234,7 +244,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
 
             }
             //check for breakfast
-            if(ad.pets.equals("yes")){
+            if(ad.breakfast.equals("yes")){
                 perks_breakfast.setVisibility(View.VISIBLE);
             }
             else{
@@ -242,7 +252,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
 
             }
             //check for bathroom
-            if(ad.pets.equals("yes")){
+            if(ad.bathroom.equals("yes")){
                 perks_bathroom.setVisibility(View.VISIBLE);
             }
             else{
@@ -251,10 +261,26 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
             }
             //check for bathroom
             if(ad.pets.equals("yes")){
-                perks_kitchen.setVisibility(View.VISIBLE);
+                perks_pets.setVisibility(View.VISIBLE);
             }
             else{
-                perks_kitchen.setVisibility(View.GONE);
+                perks_pets.setVisibility(View.GONE);
+
+            }
+            //check for child friendly
+            if(ad.child_friendly.equals("yes")){
+                perks_child_friendly.setVisibility(View.VISIBLE);
+            }
+            else{
+                perks_child_friendly.setVisibility(View.GONE);
+
+            }
+            //check for smoking
+            if(ad.smoking_allowed.equals("yes")){
+                perks_smoking.setVisibility(View.VISIBLE);
+            }
+            else{
+                perks_smoking.setVisibility(View.GONE);
 
             }
         /*on reserve button click*/
