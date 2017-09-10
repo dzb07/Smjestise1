@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thank you for making reservations through our app!  You will recieve confirmation through the email you provided."
+        android:text="@string/afterReservation"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
@@ -28,6 +28,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
         android:textAlignment="center"
-        android:text="Soon you will be redirected to the main screen!"/>
+        android:text="@string/redirect"/>
 
 </RelativeLayout>

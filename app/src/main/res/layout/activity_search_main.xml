@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Find your best deal!"
+                    android:text="@string/headingSearchMain"
                     android:textAlignment="center"
                     android:textSize="25sp"
                     android:paddingLeft="4dp"
@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginBottom="9dp"
                 android:layout_gravity="center">
 
                 <AutoCompleteTextView
@@ -62,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:hint="Enter Place Here"/>
+                android:hint="@string/enterPlace"/>
             </LinearLayout>
 
 
@@ -76,7 +77,7 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="55dp"
-                    android:hint="Check in"
+                    android:hint="@string/checkin"
                     android:id="@+id/check_in"
                     android:drawableLeft="@drawable/calendar_icon"
                     android:background="#ffffff"
@@ -88,7 +89,7 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="55dp"
-                    android:hint="Check out"
+                    android:hint="@string/checkout"
                     android:id="@+id/check_out"
                     android:drawableLeft="@drawable/calendar_icon"
                     android:background="#ffffff"
@@ -110,21 +111,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/rooms"
-                    android:text="Rooms"
+                    android:text="@string/rooms"
                     android:textAlignment="center"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/adults"
-                    android:text="Adults"
+                    android:text="@string/adults"
                     android:textAlignment="center"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/children"
-                    android:text="Children"
+                    android:text="@string/children"
                     android:textAlignment="center"/>
 
             </LinearLayout>
@@ -166,7 +167,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:hint="Desired currency"
+                    android:hint="@string/currency"
                     android:textSize="16sp"/>
                <RadioGroup
                    android:layout_width="wrap_content"
@@ -198,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_transparent_border"
                     android:textStyle="bold"
-                    android:text="Search"
+                    android:text="@string/search"
                     android:textColor="#000000"
                     android:id="@+id/search"/>
             </LinearLayout>
@@ -214,7 +215,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Don't miss these places:"
+                    android:text="@string/suggestions"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     />

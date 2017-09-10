@@ -30,6 +30,50 @@ public class GlobalVars extends Application {
     public String date_of_reservation;
     public String date_of_saving_apartment;
     private String cancellationFromDatabase;
+    private static GlobalVars instance;
+    private String first_name;
+    private String last_name;
+    private String email;
+    private String userPhoneNumber;
+    private String totalPriceToPay;
+    private String userAddress;
+    private String userCity;
+
+    public String getUserCity() {
+        return userCity;
+    }
+
+    public void setUserCity(String userCity) {
+        this.userCity = userCity;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+    }
+
+    public String getTotalPriceToPay() {
+        return totalPriceToPay;
+    }
+
+    public void setTotalPriceToPay(String totalPriceToPay) {
+        this.totalPriceToPay = totalPriceToPay;
+    }
+
+    public static GlobalVars getInstance() {
+        return instance;
+    }
     public String getCancellationFromDatabase() {
         return cancellationFromDatabase;
     }
@@ -71,9 +115,6 @@ public class GlobalVars extends Application {
     }
     /*variables needed for user reservation info to be stored*/
 
-    private String first_name;
-    private String last_name;
-    private String email;
 
     public String getFirst_name() {
         return first_name;
@@ -238,5 +279,11 @@ public class GlobalVars extends Application {
 
     public void setCheckout(Date checkout) {
         this.checkout = checkout;
+    }
+
+    @Override
+    public void onCreate() {
+        instance = this;
+        super.onCreate();
     }
 }

@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import bih.ba.smjestise.smjestise.Fragments.Bookings;
+import bih.ba.smjestise.smjestise.MainActivity;
 import bih.ba.smjestise.smjestise.R;
 import bih.ba.smjestise.smjestise.ViewHolders.SavedApartmentsViewHolder;
 import bih.ba.smjestise.smjestise.ViewHolders.UserReservationsViewHolder;
@@ -35,15 +39,17 @@ public class UserReservationsAdapter extends RecyclerView.Adapter<UserReservatio
     private Context context;
     private FirebaseAuth firebaseAuth;
     private ArrayList<ReservationClass> data;
-
     private LayoutInflater inflater;
 
+    GlobalVars a=new GlobalVars();
     private int previousPosition = 0;
     public UserReservationsAdapter(ArrayList<ReservationClass> mAds)
     {
         this.data = mAds;
     }
-
+    public UserReservationsAdapter(Context context){
+        this.context=context;
+    }
     @Override
     public UserReservationsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_reserved_apartment_item, parent, false);
@@ -86,6 +92,27 @@ public class UserReservationsAdapter extends RecyclerView.Adapter<UserReservatio
 
         int currPosition = data.indexOf(infoData);
         String apartmentToDelete = data.get(currPosition).getProp_name();
+       /* AlertDialog.Builder alertdialog = new AlertDialog.Builder(context);
+
+        alertdialog.setMessage("Cancel?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        AlertDialog alert=alertdialog.create();
+        alert.setTitle("Doctor");
+        alert.show();*/
+
         data.remove(currPosition);
         notifyItemRemoved(currPosition);
         deleteFromDatabase(apartmentToDelete);
@@ -131,4 +158,6 @@ public class UserReservationsAdapter extends RecyclerView.Adapter<UserReservatio
             }
         });
     }
+
+
 }

@@ -38,10 +38,10 @@ public class Apartments implements Serializable {
     public String urlImage9;
     public String urlImage10;
     public String ap_desc;
+    public String ap_desc_bs;
     public String cancellation;
 
-
-    public Apartments(String prop_name, Integer price_eur, String host_city, String host_street, Integer price, String lat, String longitude, Integer num_of_rooms, Integer max_num_of_people, String type_of_beds, String arr_time, String bathroom, String kitchen, String breakfast, String parking, String pets, String wifi, String child_friendly, String smoking_allowed, String app_code, String urlImage1, String urlImage2, String urlImage3, String urlImage4, String urlImage5, String urlImage6, String urlImage7, String urlImage8, String urlImage9, String urlImage10, String ap_desc, String cancellation) {
+    public Apartments(String prop_name, Integer price_eur, String host_city, String host_street, Integer price, String lat, String longitude, Integer num_of_rooms, Integer max_num_of_people, String type_of_beds, String arr_time, String bathroom, String kitchen, String breakfast, String parking, String pets, String wifi, String child_friendly, String smoking_allowed, String app_code, String urlImage1, String urlImage2, String urlImage3, String urlImage4, String urlImage5, String urlImage6, String urlImage7, String urlImage8, String urlImage9, String urlImage10, String ap_desc, String ap_desc_bs, String cancellation) {
         this.prop_name = prop_name;
         this.price_eur = price_eur;
         this.host_city = host_city;
@@ -73,7 +73,24 @@ public class Apartments implements Serializable {
         this.urlImage9 = urlImage9;
         this.urlImage10 = urlImage10;
         this.ap_desc = ap_desc;
+        this.ap_desc_bs = ap_desc_bs;
         this.cancellation = cancellation;
+    }
+
+    public String getType_of_beds() {
+        return type_of_beds;
+    }
+
+    public void setType_of_beds(String type_of_beds) {
+        this.type_of_beds = type_of_beds;
+    }
+
+    public String getAp_desc_bs() {
+        return ap_desc_bs;
+    }
+
+    public void setAp_desc_bs(String ap_desc_bs) {
+        this.ap_desc_bs = ap_desc_bs;
     }
 
     public Integer getMax_num_of_people() {

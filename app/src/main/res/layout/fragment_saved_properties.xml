@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
     tools:context="bih.ba.smjestise.smjestise.Fragments.SavedProperties"
     android:layout_height="match_parent">
 
@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You still didn't save any apartment through our app! Time to do it now!"
+            android:text="@string/noSavedApartments"
             android:textAlignment="center"
             android:textSize="27sp"
             android:textStyle="bold"
@@ -39,8 +39,22 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView02"
         android:paddingTop="10dp"
+        android:paddingBottom="37dp"
         android:clipToPadding="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         />
-</LinearLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/bootom_navigation"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:menu="@menu/bottom_navigation_menu">
+
+
+    </android.support.design.widget.BottomNavigationView>
+</RelativeLayout>

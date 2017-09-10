@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:src="@drawable/podnaslov"
+            android:id="@+id/podnaslov"
             android:layout_centerHorizontal="true"
               />
     </LinearLayout>
@@ -44,7 +45,7 @@
     <Button
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:text="Continue"
+        android:text="@string/continuetoreservation"
         android:id="@+id/continuetoReservation"
         android:textSize="18sp"
         android:textAllCaps="false"

@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import bih.ba.smjestise.smjestise.Helpers.ApartmentAdapter;
@@ -115,7 +116,6 @@ public class SearchResults extends AppCompatActivity {
                                             if ((datecheckedIN_user.after(datecheckedIN_reserved) && datecheckedIN_user.before(datecheckedOUT_reserved))
                                                     || (datecheckedOUT_user.after(datecheckedIN_reserved) && datecheckedOUT_reserved.before(datecheckedOUT_reserved))) {
 
-                                                // counter_value.setCounter(1);
 
                                                 ads.remove(r);
                                                 break;
@@ -123,6 +123,7 @@ public class SearchResults extends AppCompatActivity {
 
                                                 ads.add(r);
                                                 mAdAdapter.notifyDataSetChanged();
+                                                break;
 
                                             }
 
@@ -186,20 +187,45 @@ public class SearchResults extends AppCompatActivity {
         searched_city.setText(host_city);
 
         selected_num_of_persons = (TextView) findViewById(R.id.selected_num_of_persons);
-        selected_num_of_persons.setText(String.valueOf(num_of_adults.getNum_of_adults()) + " adults");
+
 
         number_of_nigths = (TextView) findViewById(R.id.number_of_nigths);
-        number_of_nigths.setText(String.valueOf(days_difference.getDays_difference()+" nights"));
         /*check if children is selected 1, if is then set appropriate text view*/
-        if(num_of_children.getNum_of_children()==1){
-            number_of_children01=(TextView) findViewById(R.id.selected_num_of_children);
-            number_of_children01.setText(", "+String.valueOf(num_of_children.getNum_of_children())+" child");
 
-        }
+            number_of_children01=(TextView) findViewById(R.id.selected_num_of_children);
+
+
         /*if more children then set appropriate text*/
         if(num_of_children.getNum_of_children()>1){
             number_of_children01=(TextView) findViewById(R.id.selected_num_of_children);
-            number_of_children01.setText(", "+String.valueOf(num_of_children.getNum_of_children())+" children");
+
+        }
+
+        /*set text according to language*/
+        if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs")) {
+            selected_num_of_persons.setText(String.valueOf(num_of_adults.getNum_of_adults()) + " odraslih");
+            if (num_of_adults.getDays_difference() < 2) {
+                number_of_nigths.setText(String.valueOf(days_difference.getDays_difference() + " noćenje"));
+            } else {
+                number_of_nigths.setText(String.valueOf(days_difference.getDays_difference() + " noćenja"));
+
+            }
+            if (num_of_children.getNum_of_children() == 1) {
+                number_of_children01.setText(", " + String.valueOf(num_of_children.getNum_of_children()) + " dijete");
+            } else {
+                number_of_children01.setText(", " + String.valueOf(num_of_children.getNum_of_children()) + " djece");
+
+            }
+        }
+        else{
+            selected_num_of_persons.setText(String.valueOf(num_of_adults.getNum_of_adults()) + " adults");
+            number_of_nigths.setText(String.valueOf(days_difference.getDays_difference()+" nights"));
+                if(num_of_children.getNum_of_children()==1){
+                    number_of_children01.setText(", "+String.valueOf(num_of_children.getNum_of_children())+" child");
+                }
+                else{
+                    number_of_children01.setText(", "+String.valueOf(num_of_children.getNum_of_children())+" children");
+                }
 
         }
     }

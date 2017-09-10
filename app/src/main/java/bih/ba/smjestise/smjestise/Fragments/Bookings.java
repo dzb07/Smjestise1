@@ -5,12 +5,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,9 +32,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.zip.Inflater;
 
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
+import bih.ba.smjestise.smjestise.Helpers.BottomNavigationViewHelper;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 import bih.ba.smjestise.smjestise.Helpers.ReservationClass;
 import bih.ba.smjestise.smjestise.Helpers.SavedApartments;
@@ -63,12 +70,14 @@ public class Bookings extends Fragment {
     final ArrayList<ReservationClass> ads = new ArrayList<ReservationClass>();
     private LinearLayout noReservations;
     private ImageView goToSearchMain;
+    public UserReservationsAdapter a=new UserReservationsAdapter(getContext());
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     TextView details;
+    private Button cancelReservation;
     private OnFragmentInteractionListener mListener;
-    private Button btn;
+    private Button cancel;
     private FirebaseAuth firebaseAuth;
 
 
@@ -111,6 +120,7 @@ public class Bookings extends Fragment {
         userID= firebaseAuth1.getInstance().getCurrentUser().getUid();
         noReservations=(LinearLayout)rootView.findViewById(R.id.noReservations);
         goToSearchMain=(ImageView)rootView.findViewById(R.id.goToSearchMain);
+        cancelReservation=(Button)rootView.findViewById(R.id.cancel_reservation);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = database.getReference();
 
@@ -126,6 +136,7 @@ public class Bookings extends Fragment {
 
                                 ReservationClass r = child.getValue(ReservationClass.class);
                                 //globalVariable_num_of_rooms.getNumOfRoomsVar()
+
 
 
                                 ads.add(r);
@@ -168,6 +179,45 @@ public class Bookings extends Fragment {
         });
 
 
+        BottomNavigationView bottomNavigationView=(BottomNavigationView) rootView.findViewById(R.id.bootom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())  {
+                    case R.id.home:
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        HomeFragment homeFragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+                        fragmentTransaction.commit();
+                        break;
+                    case R.id.booked:
+                        FragmentManager fragmentManager1 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                        Bookings bookingFragment = new Bookings();
+                        fragmentTransaction1.replace(R.id.fragment_container, bookingFragment);
+                        fragmentTransaction1.commit();
+                        break;
+                    case R.id.favourites:
+                        FragmentManager fragmentManager2 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                        SavedProperties savedFragment = new SavedProperties();
+                        fragmentTransaction2.replace(R.id.fragment_container, savedFragment);
+                        fragmentTransaction2.commit();
+                        break;
+                    case R.id.aboutinfo:
+                        FragmentManager fragmentManager3=getFragmentManager();
+                        FragmentTransaction fragmentTransaction3=fragmentManager3.beginTransaction();
+                        AboutApp aboutFragment=new AboutApp();
+                        fragmentTransaction3.replace(R.id.fragment_container,aboutFragment);
+                        fragmentTransaction3.commit();
+                        break;
+                }
+                return true;
+            }
+        });
+
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);//disable animation on bottom menu
 
 
 
@@ -214,7 +264,6 @@ public class Bookings extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 
 
 

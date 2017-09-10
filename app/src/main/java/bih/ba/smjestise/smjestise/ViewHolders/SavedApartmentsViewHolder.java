@@ -44,7 +44,14 @@ public class SavedApartmentsViewHolder extends RecyclerView.ViewHolder {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(ad.getSaved_on());
         String date = DateFormat.format("dd-MM-yyyy", cal).toString();
-        date_when_saved.setText("Saved on: "+date);
+        if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs"))
+        {
+            date_when_saved.setText("Spremljeno na datum: "+date);
+        }
+        else{
+            date_when_saved.setText("Saved on: "+date);
+
+        }
     }
 
 }

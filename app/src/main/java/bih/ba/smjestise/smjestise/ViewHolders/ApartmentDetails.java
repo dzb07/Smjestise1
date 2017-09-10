@@ -39,6 +39,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
+import bih.ba.smjestise.smjestise.Helpers.ApartmentAdapter;
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import bih.ba.smjestise.smjestise.Helpers.CommentsAdapter;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
@@ -55,7 +56,6 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
         ViewPagerEx.OnPageChangeListener {
 
     SliderLayout sliderLayout;
-    Apartments ad;
     HashMap<String, String> HashMapForURL;
     private double lat;
     private double longitude;
@@ -99,6 +99,9 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
         reserveButton=(Button) findViewById(R.id.reserve);
         leaveReview=(Button) findViewById(R.id.writeComment);
         ap_desc.setMaxLines(3);
+
+
+
         userID= firebaseAuth.getInstance().getCurrentUser().getUid();
        // seeAllComments=(LinearLayout)findViewById(R.id.seeAllComments);
 
@@ -153,7 +156,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
         /*open comment section*/
 
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+      /*  FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = database.getReference();
         FirebaseDatabase.getInstance().getReference().child("Reserved").addValueEventListener(new ValueEventListener() {
             @Override
@@ -163,8 +166,8 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
                     for (DataSnapshot child : children) {
                         ReservationClass reserved = child.getValue(ReservationClass.class);
                         Comments r = child.getValue(Comments.class);
-
-                        if (reserved.getUserID().equals(userID)&& !r.getUserID().equals(userID)) {
+//&& !r.getUserID().equals(userID
+                        if (reserved.getUserID().equals(userID)) {
                             leaveReview.setVisibility(View.VISIBLE);
                         }
                     }
@@ -192,7 +195,7 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
 
             }
 
-        });
+        });*/
 
         final ArrayList<SavedApartments> savedApartments = new ArrayList<>();
 
@@ -211,7 +214,16 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
             final GlobalVars globalVariable_prop_name = (GlobalVars) getApplicationContext(); //make a accessing point
             final GlobalVars currency = (GlobalVars) getApplicationContext(); //make a accessing point
 
-            ap_desc.setText(ad.getAp_desc());
+
+            if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs"))
+            {
+                ap_desc.setText(ad.getAp_desc_bs());
+            }
+            else{
+                ap_desc.setText(ad.getAp_desc());
+
+            }
+
             globalVariable_prop_name.setProperty_name(ad.prop_name);//set property name of global variable
             getSupportActionBar().setTitle(ad.prop_name);
             lat= Double.parseDouble(ad.lat);
@@ -382,12 +394,14 @@ public class ApartmentDetails extends  AppCompatActivity implements BaseSliderVi
 
 
     }
-    /*method to open read more of hotel description*/
-    public void onClick(View v) {
 
-        ap_desc.setMaxLines(Integer.MAX_VALUE);
+    public void onClick(View view) {
+        final Apartments ad = (Apartments) getIntent().getSerializableExtra("ad");
+        Intent intent=new Intent(ApartmentDetails.this, ApartmentDescription.class);
+        intent.putExtra("opis",ap_desc.getText().toString());
+        intent.putExtra("naziv_apartmana", ad.getProp_name());
+        startActivity(intent);
     }
-
 
     @Override
     protected void onStop() {

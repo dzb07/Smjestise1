@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User Log in"
+            android:text="@string/login"
             android:textAlignment="center"
             android:textSize="25sp"/>
 
@@ -23,13 +23,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter email"
+            android:hint="@string/enterEmail"
             android:id="@+id/editTextEmail"
             android:inputType="textEmailAddress"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter password"
+            android:hint="@string/enterPassword"
 
             android:layout_margin="15dp"
             android:id="@+id/editTextPassword"
@@ -38,9 +38,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log in"
+            android:text="@string/loginButton"
+            android:background="@drawable/button_transparent_border"
             android:layout_margin="15dp"
-
             android:id="@+id/buttonSignin"/>
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewSignup"
             android:textAlignment="center"
-            android:text="Don't have an account? Please Sign up here"/>
+            android:text="@string/noaccount"/>
 
     </LinearLayout>
 

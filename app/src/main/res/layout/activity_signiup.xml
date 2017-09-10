@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register User"
+            android:text="@string/registerUser"
             android:textAlignment="center"
             android:textSize="25sp"/>
 
@@ -22,13 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter email"
+            android:hint="@string/enterEmail"
             android:id="@+id/editTextEmail"
             android:inputType="textEmailAddress"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter password"
+            android:hint="@string/enterPassword"
 
             android:layout_margin="15dp"
             android:id="@+id/editTextPassword"
@@ -37,9 +37,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="@string/registerButton"
             android:layout_margin="15dp"
-
+            android:background="@drawable/button_transparent_border"
             android:id="@+id/buttonRegister"/>
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewSignin"
             android:textAlignment="center"
-            android:text="Already registred. Sign in"/>
+            android:text="@string/alreadyRegistered"/>
 
     </LinearLayout>
 

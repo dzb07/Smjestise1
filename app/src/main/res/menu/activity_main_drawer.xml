@@ -5,35 +5,39 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home2"
-            android:title="Home" />
+            android:title="@string/home" />
 
         <item
             android:id="@+id/nav_about"
-            android:title="Info"
+            android:title="@string/info"
             android:icon="@drawable/info" />
         <item
             android:id="@+id/nav_add_property"
-            android:title="Add Your Property"
+            android:title="@string/addproperty"
             android:icon="@drawable/ic_add" />
         <item
             android:id="@+id/nav_bookings"
-            android:title="Your Bookings"
+            android:title="@string/booked"
             android:icon="@drawable/ic_bookmark" />
         <item
+            android:id="@+id/nav_property_review"
+            android:title="@string/writeReview"
+            android:icon="@drawable/ic_feedback" />
+        <item
             android:id="@+id/nav_saved"
-            android:title="Saved Properties"
+            android:title="@string/saved"
             android:icon="@drawable/ic_favourite" />
     </group>
 
-        <item android:title="Like the Smjestise.ba?">
+        <item android:title="@string/likeapp">
         <menu>
                 <item
                     android:id="@+id/nav_rate"
-                    android:title="Give App Feedback"
+                    android:title="@string/appfeedback"
                     android:icon="@drawable/ic_feedback" />
                 <item
                     android:id="@+id/nav_logOut"
-                    android:title="Log Out"
+                    android:title="@string/logout"
                     android:icon="@drawable/ic_person1" />
 
         </menu>

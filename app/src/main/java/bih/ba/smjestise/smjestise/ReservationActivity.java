@@ -3,11 +3,13 @@ package bih.ba.smjestise.smjestise;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -81,19 +83,41 @@ public class ReservationActivity extends AppCompatActivity {
         checkin_reservation.setText("Check in:\n"+globalVariable_checkin.getCheckIN());
         checkout_reservation.setText("Check out:\n"+globalVariable_checkout.getCheckOUT());
         intro=(TextView)findViewById(R.id.det);
-        if(dayDiff.getDays_difference()>1) {
-            intro.setText("You chose to stay " + dayDiff.getDays_difference() + " nights." +
-                    " Please fill in details below in order to finish reservation.\n *All fields are required!");
-        }
-        else{
-            intro.setText("You chose to stay " + dayDiff.getDays_difference() + " night. Please fill in details below in order to finish reservation." +
-                    "\n *All fields are required!");
+        if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs"))
+        {
+            if(dayDiff.getDays_difference()>1) {
+                intro.setText("Odabrali ste " + dayDiff.getDays_difference() + " noćenja." +
+                        " Molimo popunite potrebne podatke da potvrdite rezervaciju..\n *Sva polja su obavezna!");
+            }
+            else{
+                intro.setText("Odabrali ste" + dayDiff.getDays_difference() + " noćenje. Molimo popunite potrebne podatke da potvrdite rezervaciju." +
+                        "\n *Sva polja su obavezna!");
 
+            }
         }
+        else {
+            if(dayDiff.getDays_difference()>1) {
+                intro.setText("You chose to stay " + dayDiff.getDays_difference() + " nights." +
+                        " Please fill in details below in order to finish reservation.\n *All fields are required!");
+            }
+            else{
+                intro.setText("You chose to stay " + dayDiff.getDays_difference() + " night. Please fill in details below in order to finish reservation." +
+                        "\n *All fields are required!");
+
+            }
+        }
+
 
 
         pricePay=(TextView)findViewById(R.id.price_to_pay01);
-        pricePay.setText("Total price: "+price_to_pay+ currency.getCurrency());
+        if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs"))
+        {
+            pricePay.setText("Ukupna cijena: "+price_to_pay+ currency.getCurrency());
+        }
+        else{
+            pricePay.setText("Total price: "+price_to_pay+ currency.getCurrency());
+
+        }
         final String p_name=globalVariable_prop_name.getProperty_name();
 
         /*sending data to ReservationClass*/
@@ -103,7 +127,7 @@ public class ReservationActivity extends AppCompatActivity {
 
         ap.setText(p_name);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-       final DatabaseReference databaseReference = database.getReference();
+        final DatabaseReference databaseReference = database.getReference();
         //access button to reserve//
         confirmReservation=(Button)findViewById(R.id.confirm_reservation);
         confirmReservation.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +152,39 @@ public class ReservationActivity extends AppCompatActivity {
 
                 userCity=(EditText) findViewById(R.id.user1_city);
                 String userCity_value=userCity.getText().toString();
+
+                /*checking if data is entered*/
+                if(TextUtils.isEmpty(f_name_value)){
+                    Toast.makeText(ReservationActivity.this,"Please enter your first name!",Toast.LENGTH_LONG).show();
+                    //stopping the function of exectuing further
+                    return;
+                }
+                if(TextUtils.isEmpty(l_name_value)){
+                    Toast.makeText(ReservationActivity.this,"Please enter your last name!",Toast.LENGTH_LONG).show();
+                    //stopping the function of exectuing further
+                    return;
+                }
+                if(TextUtils.isEmpty(emailAddress_value)){
+                    Toast.makeText(ReservationActivity.this,"Please enter your email address!",Toast.LENGTH_LONG).show();
+                    //stopping the function of exectuing further
+                    return;
+                }
+                if(TextUtils.isEmpty(userAddress_value)){
+                    Toast.makeText(ReservationActivity.this,"Please enter your address!",Toast.LENGTH_LONG).show();
+                    //stopping the function of exectuing further
+                    return;
+                }
+                if(TextUtils.isEmpty(userPhoneNumber_value)){
+                    Toast.makeText(ReservationActivity.this,"Please enter your phone number!",Toast.LENGTH_LONG).show();
+                    //stopping the function of exectuing further
+                    return;
+                }
+                if(TextUtils.isEmpty(userCity_value)){
+                    Toast.makeText(ReservationActivity.this,"Please enter your city!",Toast.LENGTH_LONG).show();
+                    //stopping the function of exectuing further
+                    return;
+                }
+                /*end of checking if data is entered*/
                 reservation.add(new ReservationClass(p_name,true,globalVariable_checkin.getCheckIN(),
                         globalVariable_checkout.getCheckOUT(),
                         t1.getT1(),t2.getT2(),hostCity.getHostcity(),f_name_value,l_name_value,emailAddress_value,
@@ -135,20 +192,24 @@ public class ReservationActivity extends AppCompatActivity {
 
                 String mGroupId = databaseReference.push().getKey();
                 /*store data into Reserved Node*/
-                for (int i = 0; i < reservation.size(); i++) {
-                    databaseReference.child("Reserved/"+propName.getProperty_name()).push().setValue(reservation.get(i));
-                }
 
-                /*store data into UserReservations Node*/
-                for (int i = 0; i < reservation.size(); i++) {
-                    databaseReference.child("UserReservations/"+userID).push().setValue(reservation.get(i));
-                }
                 fr_name.setFirst_name(f_name_value);
                 ls_name.setLast_name(l_name_value);
                 emailadd.setEmail(emailAddress_value);
-
+                emailadd.setUserPhoneNumber(userPhoneNumber_value);
+                emailadd.setTotalPriceToPay(totalPrice);
+                emailadd.setUserAddress(userAddress_value);
+                emailadd.setUserCity(userCity_value);
 
                 if(cancellation.equals("yes")){
+                    for (int i = 0; i < reservation.size(); i++) {
+                        databaseReference.child("Reserved/"+propName.getProperty_name()).push().setValue(reservation.get(i));
+                    }
+
+                /*store data into UserReservations Node*/
+                    for (int i = 0; i < reservation.size(); i++) {
+                        databaseReference.child("UserReservations/"+userID).push().setValue(reservation.get(i));
+                    }
                     Intent intentFinal = new Intent(ReservationActivity.this, FinalActivity01.class);
                     startActivity(intentFinal);
                 }

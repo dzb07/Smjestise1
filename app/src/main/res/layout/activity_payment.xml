@@ -5,6 +5,8 @@
     tools:context="bih.ba.smjestise.smjestise.Payment"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
@@ -19,16 +21,9 @@
         android:layout_marginTop="30dp"
         android:id="@+id/paymentButton"
         android:background="@drawable/button_transparent_border"
+        android:textAllCaps="false"
+        android:textSize="24sp"
         android:onClick="pay"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Payment approved!"
-        android:textStyle="bold"
-        android:id="@+id/response"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:visibility="gone"/>
+
 
 </LinearLayout>

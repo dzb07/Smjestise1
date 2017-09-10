@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
@@ -50,13 +51,26 @@ public class UserReservationsViewHolder extends RecyclerView.ViewHolder {
         propertyAddress.setText(ad.getHost_city());
         checkinDate.setText(ad.getCheckin());
         checkoutDate.setText(ad.getCheckout());
+        Date datecheckedOUT_reserved = new Date(ad.getTimestamp2());
+        Date todaysDate=new Date(System.currentTimeMillis());
 
+        if(datecheckedOUT_reserved.before(todaysDate)){
+            cancelReservation.setVisibility(View.GONE);
+        }
         /*access when reservation was made*/
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(ad.getReservation_made_on());
         String date = DateFormat.format("dd-MM-yyyy", cal).toString();
-        reservation_made_on.setText("Reserved on: "+date);
-        cijena.setText("Price: "+ad.getPrice_to_pay());
+        if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs"))
+        {
+            reservation_made_on.setText("Rezervisano na datum: "+date);
+            cijena.setText("Cijena "+ad.getPrice_to_pay());
+        }
+        else{
+            reservation_made_on.setText("Reserved on: "+date);
+            cijena.setText("Price: "+ad.getPrice_to_pay());
+        }
+
     }
 
 }

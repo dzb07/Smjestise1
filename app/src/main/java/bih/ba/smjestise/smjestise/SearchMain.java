@@ -161,7 +161,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
               DatePickerDialog datePickerDialog=  new DatePickerDialog(SearchMain.this, date , myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
 
             }
@@ -189,7 +189,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
                 DatePickerDialog datePickerDialog=  new DatePickerDialog(SearchMain.this, date2, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+               // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
         });
@@ -318,8 +318,6 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
 
 
-
-
     private void updateLabel() {
         String myFormat = "dd MM yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -351,7 +349,7 @@ public class SearchMain extends AppCompatActivity implements GoogleApiClient.OnC
 
         final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
         np.setMaxValue(40); // max value 40
-        np.setMinValue(1);   // min value 1
+        np.setMinValue(0);   // min value 0
         np.setWrapSelectorWheel(false);
         b1.setOnClickListener(new View.OnClickListener()
         {

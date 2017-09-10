@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="All you need in one place!"
+        android:text="@string/nav_header"
         android:textSize="16sp"
         android:textStyle="bold"
         />

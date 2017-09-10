@@ -3,13 +3,17 @@ package bih.ba.smjestise.smjestise.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import bih.ba.smjestise.smjestise.Helpers.BottomNavigationViewHelper;
 import bih.ba.smjestise.smjestise.R;
 
 /**
@@ -67,7 +71,49 @@ public class AboutApp extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about_app, container, false);
+        View rootView=inflater.inflate(R.layout.fragment_about_app, container, false);
+        BottomNavigationView bottomNavigationView=(BottomNavigationView) rootView.findViewById(R.id.bootom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())  {
+                    case R.id.home:
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        HomeFragment homeFragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+                        fragmentTransaction.commit();
+                        break;
+                    case R.id.booked:
+                        FragmentManager fragmentManager1 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                        Bookings bookingFragment = new Bookings();
+                        fragmentTransaction1.replace(R.id.fragment_container, bookingFragment);
+                        fragmentTransaction1.commit();
+                        break;
+                    case R.id.favourites:
+                        FragmentManager fragmentManager2 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                        SavedProperties savedFragment = new SavedProperties();
+                        fragmentTransaction2.replace(R.id.fragment_container, savedFragment);
+                        fragmentTransaction2.commit();
+                        break;
+                    case R.id.aboutinfo:
+                        FragmentManager fragmentManager3=getFragmentManager();
+                        FragmentTransaction fragmentTransaction3=fragmentManager3.beginTransaction();
+                        AboutApp aboutFragment=new AboutApp();
+                        fragmentTransaction3.replace(R.id.fragment_container,aboutFragment);
+                        fragmentTransaction3.commit();
+                        break;
+                }
+                return true;
+            }
+        });
+
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);//disable animation on bottom menu
+
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

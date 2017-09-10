@@ -3,8 +3,13 @@ package bih.ba.smjestise.smjestise.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import bih.ba.smjestise.smjestise.Helpers.BottomNavigationViewHelper;
 import bih.ba.smjestise.smjestise.Helpers.RateApplication;
 import bih.ba.smjestise.smjestise.R;
 
@@ -82,25 +88,11 @@ public class RateApp extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView=inflater.inflate(R.layout.fragment_rate_app, container, false);
-        openCommentSection=(Button) rootView.findViewById(R.id.openComment);
         final RatingBar mBar = (RatingBar) rootView.findViewById(R.id.ratingBar);
 
         final ArrayList<RateApplication> rateObject = new ArrayList<>();
         commentofUser=(EditText)rootView.findViewById(R.id.userComment);
 
-        openCommentSection.setOnClickListener(new View.OnClickListener() {
-                                                  @Override
-                                                  public void onClick(View view) {
-
-                                                      if(commentofUser.getVisibility()==View.VISIBLE)
-                                                          commentofUser.setVisibility(View.GONE);
-
-                                                      else
-                                                      commentofUser.setVisibility(View.VISIBLE);
-
-                                                  }
-
-        });
 
 
         /*sending rate to database*/
@@ -121,9 +113,51 @@ public class RateApp extends Fragment {
                     databaseReference.child("AppRatings").push().setValue(rateObject.get(i));
                 }
 
+
             }
         });
         /*end of sending rate to database*/
+
+
+        BottomNavigationView bottomNavigationView=(BottomNavigationView) rootView.findViewById(R.id.bootom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())  {
+                    case R.id.home:
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        HomeFragment homeFragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+                        fragmentTransaction.commit();
+                        break;
+                    case R.id.booked:
+                        FragmentManager fragmentManager1 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                        Bookings bookingFragment = new Bookings();
+                        fragmentTransaction1.replace(R.id.fragment_container, bookingFragment);
+                        fragmentTransaction1.commit();
+                        break;
+                    case R.id.favourites:
+                        FragmentManager fragmentManager2 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                        SavedProperties savedFragment = new SavedProperties();
+                        fragmentTransaction2.replace(R.id.fragment_container, savedFragment);
+                        fragmentTransaction2.commit();
+                        break;
+                    case R.id.aboutinfo:
+                        FragmentManager fragmentManager3=getFragmentManager();
+                        FragmentTransaction fragmentTransaction3=fragmentManager3.beginTransaction();
+                        AboutApp aboutFragment=new AboutApp();
+                        fragmentTransaction3.replace(R.id.fragment_container,aboutFragment);
+                        fragmentTransaction3.commit();
+                        break;
+                }
+                return true;
+            }
+        });
+
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);//disable animation on bottom menu
 
 
         return rootView;

@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 import bih.ba.smjestise.smjestise.Helpers.BottomNavigationViewHelper;
 import bih.ba.smjestise.smjestise.R;
@@ -44,7 +47,8 @@ public class HomeFragment extends Fragment {
     private Context context;
     Button continueButton;
     private OnFragmentInteractionListener mListener;
-
+    private ImageView naslov_home;
+    private ImageView podnaslov;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -133,6 +137,19 @@ public class HomeFragment extends Fragment {
 
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);//disable animation on bottom menu
 
+
+        //set Home text according to language of phone
+
+        naslov_home=(ImageView)rootView.findViewById(R.id.naslov_home);
+        podnaslov=(ImageView)rootView.findViewById(R.id.podnaslov);
+        if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs"))
+        {
+            podnaslov.setImageResource(R.drawable.podnaslov_bs);
+        }
+        else {
+            podnaslov.setImageResource(R.drawable.podnaslov);
+
+        }
         return rootView;
     }
 

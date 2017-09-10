@@ -4,13 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import bih.ba.smjestise.smjestise.Helpers.BottomNavigationViewHelper;
 import bih.ba.smjestise.smjestise.R;
 
 /**
@@ -77,6 +83,48 @@ public class AddYourProperty extends Fragment {
                 sendEmail();
             }
         });
+
+
+        BottomNavigationView bottomNavigationView=(BottomNavigationView) rootView.findViewById(R.id.bootom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())  {
+                    case R.id.home:
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        HomeFragment homeFragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+                        fragmentTransaction.commit();
+                        break;
+                    case R.id.booked:
+                        FragmentManager fragmentManager1 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                        Bookings bookingFragment = new Bookings();
+                        fragmentTransaction1.replace(R.id.fragment_container, bookingFragment);
+                        fragmentTransaction1.commit();
+                        break;
+                    case R.id.favourites:
+                        FragmentManager fragmentManager2 = getFragmentManager();
+                        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                        SavedProperties savedFragment = new SavedProperties();
+                        fragmentTransaction2.replace(R.id.fragment_container, savedFragment);
+                        fragmentTransaction2.commit();
+                        break;
+                    case R.id.aboutinfo:
+                        FragmentManager fragmentManager3=getFragmentManager();
+                        FragmentTransaction fragmentTransaction3=fragmentManager3.beginTransaction();
+                        AboutApp aboutFragment=new AboutApp();
+                        fragmentTransaction3.replace(R.id.fragment_container,aboutFragment);
+                        fragmentTransaction3.commit();
+                        break;
+                }
+                return true;
+            }
+        });
+
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);//disable animation on bottom menu
+
         return rootView;
     }
 

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.vision.text.Text;
 
+import java.util.Locale;
+
 import bih.ba.smjestise.smjestise.Helpers.Apartments;
 import bih.ba.smjestise.smjestise.Helpers.GlobalVars;
 import bih.ba.smjestise.smjestise.R;
@@ -47,11 +49,24 @@ public class ApartmentViewHolder extends RecyclerView.ViewHolder {
         /*checking which currency is selected*/
        if(GlobalVars.currency.equals("EUR")) {
             mPrice.setText(String.valueOf(ad.price_eur));
-            currency_desc.setText("EUR per night");
+           if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs"))
+           {
+               currency_desc.setText("EUR noćenje");
+           }
+           else{
+               currency_desc.setText("EUR per night");
+           }
+
         }
         else{
             mPrice.setText(String.valueOf(ad.price));
-           currency_desc.setText("USD per night");
+           if(Locale.getDefault().getLanguage().equals("hr") || Locale.getDefault().getLanguage().equals("bs"))
+           {
+               currency_desc.setText("USD noćenje");
+           }
+           else{
+               currency_desc.setText("USD per night");
+           }
 
 
        }

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -43,6 +44,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ViewHolders.ApartmentDetails" />
         <activity android:name=".SearchResults" />
+        <activity android:name=".ViewHolders.ApartmentDescription" />
         <activity
             android:name=".ReservationActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -54,7 +56,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".Payment" />
         <activity android:name=".LeaveReview" />
-        <activity android:name=".ActivityAfterReview"></activity>
+        <activity android:name=".ActivityAfterReview" />
+        <activity android:name=".ActivityAfterPayment"></activity>
     </application>
 
 </manifest>

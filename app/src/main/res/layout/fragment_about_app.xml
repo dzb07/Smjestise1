@@ -1,22 +1,27 @@
-<LinearLayout android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="bih.ba.smjestise.smjestise.Fragments.AboutApp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:src="@drawable/b1"
-       />
+        android:src="@drawable/b1" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="19sp"
         android:textAlignment="center"
-        android:text="Smjestise.ba is an application that offers you a great variety of apartments one of which will definitely meet your desires! "/>
+        android:text="@string/info_text1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +34,7 @@
             android:layout_height="wrap_content"
             android:textSize="19sp"
             android:textStyle="bold"
-            android:text="Easy search"/>
+            android:text="@string/easySearch"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +52,7 @@
             android:layout_height="wrap_content"
             android:textSize="19sp"
             android:textStyle="bold"
-            android:text="1000 properties"/>
+            android:text="@string/numproperties"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +70,7 @@
             android:layout_height="wrap_content"
             android:textSize="19sp"
             android:textStyle="bold"
-            android:text="Easy reservation"/>
+            android:text="@string/easyReservation"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +88,7 @@
             android:layout_height="wrap_content"
             android:textSize="19sp"
             android:textStyle="bold"
-            android:text="Payment through PayPal"/>
+            android:text="@string/paypal_info"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,7 +106,7 @@
             android:layout_height="wrap_content"
             android:textSize="19sp"
             android:textStyle="bold"
-            android:text="Possibility of saving an apartment"/>
+            android:text="@string/bookmark_info"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,5 +114,18 @@
             android:src="@drawable/ic_checked"/>
     </LinearLayout>
 
-    
 </LinearLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/bootom_navigation"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:menu="@menu/bottom_navigation_menu">
+
+    </android.support.design.widget.BottomNavigationView>
+
+</RelativeLayout>

@@ -1,19 +1,19 @@
 <resources>
     <string name="app_name">Smjestise.ba</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_reservation">Reservation</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_reservation" translatable="false">Reservation</string>
 
     <!--my strings-->
     <string name="price_per_nigth">KM per night</string>
     <string name="google_maps_key">AIzaSyDiy5C8g2TwWr-jF5_Zh5TM-RsJxZmwf7o</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login" translatable="false">Sign in</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -27,8 +27,129 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_final">FinalActivity</string>
+    <string name="title_activity_final" translatable="false">FinalActivity</string>
 
+    <!--Activity Signup-->
+    <string name="registerUser">Register User</string>
+    <string name="enterEmail">Enter email</string>
+    <string name="enterPassword">Enter password</string>
+    <string name="registerButton">Register</string>
+    <string name="alreadyRegistered">Already registered. Sign in</string>
+    <!-- -->
+
+    <!--Activity Login-->
+    <string name="login">User Log in</string>
+    <string name="loginButton">Login</string>
+    <string name="noaccount">Don\'t have an account? Please Sign up here</string>
+    <!-- -->
+
+    <!--Activity SearchMain-->
+    <string name="headingSearchMain">Find your best deal!</string>
+    <string name="enterPlace">Enter Place Here</string>
+    <string name="checkin">Check in</string>
+    <string name="checkout">Check out</string>
+    <string name="rooms">Rooms</string>
+    <string name="adults">Adults</string>
+    <string name="search">Search</string>
+    <string name="suggestions">Don\'t miss these places:</string>
+    <!-- -->
+
+    <!--Activity ApartmentDetails-->
+    <string name="apartment_description">Apartment description</string>
+    <string name="readMore">Read more</string>
+    <string name="guestSay">What other guests say:</string>
+    <string name="leaveReview">Leave review</string>
+    <string name="reserve">Reserve</string>
+    <string name="save">Save</string>
+    <string name="children">Children</string>
+    <string name="currency">Currency</string>
+    <!-- -->
+
+    <!--Activity Reservation-->
+    <string name="details">DETAILS:</string>
+    <string name="f_name">First Name</string>
+    <string name="l_name">Last Name</string>
+    <string name="emailaddress">Email Address</string>
+    <string name="address">Adress</string>
+    <string name="city">City</string>
+    <string name="m_phone">Mobile Phone</string>
+    <string name="confirmReservation">Confirm Reservation</string>
+
+    <!-- -->
+    <!--Activity Leave Review-->
+    <string name="reviewText">When leaving a review for a certain property, please take into consideration following things:</string>
+    <string name="reviewPerks">\ncomfort\nposition\nfeatures\nvalue for money \n</string>
+    <string name="username">Username</string>
+    <string name="comment">Comment:</string>
+    <string name="done">Done</string>
+    <!-- -->
+
+    <!--Activity After Review-->
+    <string name="afterReview1">Thank you for leaving your review! Every new review helps in creating real picture of the apartment.</string>
+    <string name="redirect">Soon you will be redirected to the main screen!</string>
+    <!-- -->
+
+    <!--Activity After Reservation-Final01-->
+    <string name="afterReservation">Thank you for making reservations through our app!  You will receive confirmation through the email you provided.</string>
+    <!-- -->
+
+    <!--Fragment Home-->
+    <string name="continuetoreservation">Continue</string>
+    <!-- -->
+
+    <!--Fragment Bottom Navigation Menu-->
+    <string name="home">Home</string>
+    <string name="booked">Booked</string>
+    <string name="favorites">Favorites</string>
+    <string name="info">Info</string>
+    <!-- -->
+
+    <!--Fragment Info-->
+    <string name="info_text1">Smjestise.ba is an application that offers you a great variety of apartments one of which will definitely meet your desires! </string>
+    <string name="easySearch">Easy search</string>
+    <string name="numproperties">1000 properties</string>
+    <string name="easyReservation">Easy reservation</string>
+    <string name="paypal_info">Payment through PayPal</string>
+    <string name="bookmark_info">Possibility of bookmarking an apartment</string>
+    <!-- -->
+
+    <!--Fragment Add Your Property-->
+    <string name="joinapp">Join Smjestise.ba</string>
+    <string name="guestsWaiting">Your guests are waiting</string>
+    <string name="sendEmail">Send us an email</string>
+    <!-- -->
+
+    <!--booking apartment item-->
+    <string name="cancelReservation">Cancel Reservation</string>
+    <!-- -->
+
+    <!--Rate app fragment -->
+    <string name="text_rateapp1">Do you find our app useful?</string>
+    <string name="text_rateapp2">Wanna add comment as well? Click below...</string>
+    <!-- -->
+
+    <!--Rate app fragment -->
+    <string name="nav_header">All you need in one place!</string>
+    <!-- -->
+
+    <!-- Nav header main-->
+
+    <string name="bookings">Your Bookings</string>
+    <string name="saved">Saved Properties</string>
+    <string name="addproperty">Add Your Property</string>
+    <string name="appfeedback">Give App Feedback</string>
+    <string name="logout">Log out</string>
+    <string name="likeapp">Like the Smjestise.ba?</string>
+    <!-- -->
+    <!--Fragment Saved Apartments-->
+    <string name="noSavedApartments">You still didn\'t save any apartment through our app! Time to do it now!</string>
+
+    <!-- -->
+    <!--Fragment Bookings-->
+    <string name="noReservations">You still didn\'t make any reservation through our app! Time to do it now!</string>
+    <string name="paymentApproved">Transaction is successful!</string>
+    <string name="writeReview">Write a review</string>
+    <!-- -->
 
     <!-- end of my strings-->
 </resources>

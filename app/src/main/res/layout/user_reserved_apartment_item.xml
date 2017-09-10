@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/cancel_reservation"
-            android:text="Cancel Reservation"
+            android:text="@string/cancelReservation"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textStyle="bold"
